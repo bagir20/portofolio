@@ -148,3 +148,11 @@ html {
   background-image: radial-gradient(circle, oklch(0.8 0 0) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+@keyframes scrollDot {
+  from { top: -8px; }
+  to   { top: 28px; }
+}
+.scroll-dot {
+  animation: scrollDot 1.4s ease-in-out infinite;
+}

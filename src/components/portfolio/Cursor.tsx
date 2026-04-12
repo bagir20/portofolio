@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
 function useIsDesktop() {
   return useSyncExternalStore(
-    (callback) => {
-      window.addEventListener("resize", callback);
-      return () => window.removeEventListener("resize", callback);
+    (cb) => {
+      window.addEventListener("resize", cb);
+      return () => window.removeEventListener("resize", cb);
     },
     () => window.innerWidth >= 1024,
     () => true
@@ -16,45 +15,84 @@ function useIsDesktop() {
 
 export default function Cursor() {
   const isDesktop = useIsDesktop();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const mouse = useRef({ x: 0, y: 0 });
+  const ring = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number>(0);
+  const isHovering = useRef(false);
 
   useEffect(() => {
     if (!isDesktop) return;
 
-    document.body.classList.add("custom-cursor-active");
+    document.body.style.cursor = "none";
 
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    const animate = () => {
+      ring.current.x = lerp(ring.current.x, mouse.current.x, 0.12);
+      ring.current.y = lerp(ring.current.y, mouse.current.y, 0.12);
+
+      if (ringRef.current) {
+        ringRef.current.style.left = `${ring.current.x}px`;
+        ringRef.current.style.top = `${ring.current.y}px`;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
     };
 
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA"
-      ) {
-        setIsHovering(true);
+    rafRef.current = requestAnimationFrame(animate);
+
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+      if (dotRef.current) {
+        dotRef.current.style.left = `${e.clientX}px`;
+        dotRef.current.style.top = `${e.clientY}px`;
       }
     };
 
-    const handleMouseOut = () => {
-      setIsHovering(false);
+    const isInteractive = (el: HTMLElement) =>
+      el.tagName === "A" ||
+      el.tagName === "BUTTON" ||
+      el.tagName === "INPUT" ||
+      el.tagName === "TEXTAREA" ||
+      !!el.closest("a") ||
+      !!el.closest("button");
+
+    const onOver = (e: MouseEvent) => {
+      if (!isInteractive(e.target as HTMLElement)) return;
+      isHovering.current = true;
+      if (dotRef.current) dotRef.current.style.transform = "translate(-50%, -50%) scale(0)";
+      if (ringRef.current) {
+        ringRef.current.style.width = "52px";
+        ringRef.current.style.height = "52px";
+        ringRef.current.style.opacity = "0.6";
+        ringRef.current.style.background = "rgba(17,17,17,0.05)";
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mouseout", handleMouseOut);
+    const onOut = (e: MouseEvent) => {
+      if (!isInteractive(e.target as HTMLElement)) return;
+      isHovering.current = false;
+      if (dotRef.current) dotRef.current.style.transform = "translate(-50%, -50%) scale(1)";
+      if (ringRef.current) {
+        ringRef.current.style.width = "36px";
+        ringRef.current.style.height = "36px";
+        ringRef.current.style.opacity = "0.35";
+        ringRef.current.style.background = "transparent";
+      }
+    };
+
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseover", onOver);
+    document.addEventListener("mouseout", onOut);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mouseout", handleMouseOut);
-      document.body.classList.remove("custom-cursor-active");
+      cancelAnimationFrame(rafRef.current);
+      document.body.style.cursor = "";
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseout", onOut);
     };
   }, [isDesktop]);
 
@@ -62,34 +100,41 @@ export default function Cursor() {
 
   return (
     <>
-      {/* Main cursor dot */}
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-neutral-900 rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-        }}
-        transition={{
-          type: "spring",
-          damping: 30,
-          stiffness: 500,
-          mass: 0.2,
+      {/* Dot */}
+      <div
+        ref={dotRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 6,
+          height: 6,
+          background: "#111",
+          borderRadius: "50%",
+          pointerEvents: "none",
+          zIndex: 9999,
+          transform: "translate(-50%, -50%)",
+          transition: "transform 0.15s ease, opacity 0.2s ease",
+          willChange: "left, top",
         }}
       />
-      {/* Cursor ring */}
-      <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border border-neutral-900/40 rounded-full pointer-events-none z-[9998] mix-blend-difference"
-        animate={{
-          x: mousePosition.x - 20,
-          y: mousePosition.y - 20,
-          scale: isHovering ? 1.8 : 1,
-          opacity: isHovering ? 0.6 : 0.4,
-        }}
-        transition={{
-          type: "spring",
-          damping: 25,
-          stiffness: 200,
-          mass: 0.5,
+      {/* Ring */}
+      <div
+        ref={ringRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 36,
+          height: 36,
+          border: "1.5px solid #111",
+          borderRadius: "50%",
+          pointerEvents: "none",
+          zIndex: 9998,
+          transform: "translate(-50%, -50%)",
+          opacity: 0.35,
+          transition: "width 0.25s ease, height 0.25s ease, opacity 0.25s ease, background 0.25s ease",
+          willChange: "left, top",
         }}
       />
     </>

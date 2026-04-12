@@ -28,7 +28,7 @@ export default function Loader() {
               className="relative"
             >
               <span className="text-4xl font-light tracking-[0.3em] text-neutral-900">
-                AP
+                MB
               </span>
               <motion.div
                 className="absolute -bottom-1 left-0 h-[1px] bg-neutral-900"
