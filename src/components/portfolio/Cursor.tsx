@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore, useState } from "react";
+import { useTheme } from "next-themes";
 
 function useIsDesktop() {
   return useSyncExternalStore(
@@ -15,12 +16,22 @@ function useIsDesktop() {
 
 export default function Cursor() {
   const isDesktop = useIsDesktop();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const ring = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
-  const isHovering = useRef(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
+  const cursorColor = isDark ? "#e5e5e5" : "#111";
+  const hoverBg = isDark ? "rgba(229,229,229,0.05)" : "rgba(17,17,17,0.05)";
 
   useEffect(() => {
     if (!isDesktop) return;
@@ -61,19 +72,17 @@ export default function Cursor() {
 
     const onOver = (e: MouseEvent) => {
       if (!isInteractive(e.target as HTMLElement)) return;
-      isHovering.current = true;
       if (dotRef.current) dotRef.current.style.transform = "translate(-50%, -50%) scale(0)";
       if (ringRef.current) {
         ringRef.current.style.width = "52px";
         ringRef.current.style.height = "52px";
         ringRef.current.style.opacity = "0.6";
-        ringRef.current.style.background = "rgba(17,17,17,0.05)";
+        ringRef.current.style.background = hoverBg;
       }
     };
 
     const onOut = (e: MouseEvent) => {
       if (!isInteractive(e.target as HTMLElement)) return;
-      isHovering.current = false;
       if (dotRef.current) dotRef.current.style.transform = "translate(-50%, -50%) scale(1)";
       if (ringRef.current) {
         ringRef.current.style.width = "36px";
@@ -94,7 +103,7 @@ export default function Cursor() {
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseout", onOut);
     };
-  }, [isDesktop]);
+  }, [isDesktop, hoverBg]);
 
   if (!isDesktop) return null;
 
@@ -109,7 +118,7 @@ export default function Cursor() {
           left: 0,
           width: 6,
           height: 6,
-          background: "#111",
+          background: cursorColor,
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 9999,
@@ -127,7 +136,7 @@ export default function Cursor() {
           left: 0,
           width: 36,
           height: 36,
-          border: "1.5px solid #111",
+          border: `1.5px solid ${cursorColor}`,
           borderRadius: "50%",
           pointerEvents: "none",
           zIndex: 9998,

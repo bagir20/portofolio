@@ -15,7 +15,7 @@ export default function Loader() {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-neutral-950"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
@@ -27,11 +27,11 @@ export default function Loader() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative"
             >
-              <span className="text-4xl font-light tracking-[0.3em] text-neutral-900">
+              <span className="text-4xl font-light tracking-[0.3em] text-neutral-900 dark:text-neutral-100">
                 MB
               </span>
               <motion.div
-                className="absolute -bottom-1 left-0 h-[1px] bg-neutral-900"
+                className="absolute -bottom-1 left-0 h-[1px] bg-neutral-900 dark:bg-neutral-100"
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 1.2, ease: "easeInOut", delay: 0.3 }}
@@ -39,9 +39,9 @@ export default function Loader() {
             </motion.div>
 
             {/* Loading bar */}
-            <motion.div className="w-32 h-[1px] bg-neutral-100 overflow-hidden">
+            <motion.div className="w-32 h-[1px] bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
               <motion.div
-                className="h-full bg-neutral-900"
+                className="h-full bg-neutral-900 dark:bg-neutral-100"
                 initial={{ x: "-100%" }}
                 animate={{ x: "0%" }}
                 transition={{

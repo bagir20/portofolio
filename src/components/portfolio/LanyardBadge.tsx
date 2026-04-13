@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "next-themes";
 
 // ─── Spring Physics Helpers ────────────────────────────────────────────────────
 
@@ -68,8 +69,16 @@ function QrDecoration() {
 
 export default function LanyardBadge() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const isDark = mounted && resolvedTheme === "dark";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Physics springs for lanyard swing (rotation Z) and card tilt (X/Y)
   const swingSpring = useRef<SpringState>(createSpring(0));
@@ -118,59 +127,17 @@ export default function LanyardBadge() {
       const { x, y, active } = mousePos.current;
 
       if (active) {
-        // Swing based on horizontal offset from center
-        const swingTarget = Math.max(
-          -MAX_SWING,
-          Math.min(MAX_SWING, (x / 400) * MAX_SWING)
-        );
-        // Tilt based on mouse position relative to card
-        const tiltYTarget = Math.max(
-          -MAX_TILT,
-          Math.min(MAX_TILT, (x / 300) * MAX_TILT)
-        );
-        const tiltXTarget = Math.max(
-          -MAX_TILT,
-          Math.min(MAX_TILT, (-y / 300) * MAX_TILT)
-        );
+        const swingTarget = Math.max(-MAX_SWING, Math.min(MAX_SWING, (x / 400) * MAX_SWING));
+        const tiltYTarget = Math.max(-MAX_TILT, Math.min(MAX_TILT, (x / 300) * MAX_TILT));
+        const tiltXTarget = Math.max(-MAX_TILT, Math.min(MAX_TILT, (-y / 300) * MAX_TILT));
 
-        swingSpring.current = updateSpring(
-          swingSpring.current,
-          swingTarget,
-          STIFFNESS,
-          DAMPING
-        );
-        tiltXSpring.current = updateSpring(
-          tiltXSpring.current,
-          tiltXTarget,
-          STIFFNESS * 1.2,
-          DAMPING
-        );
-        tiltYSpring.current = updateSpring(
-          tiltYSpring.current,
-          tiltYTarget,
-          STIFFNESS * 1.2,
-          DAMPING
-        );
+        swingSpring.current = updateSpring(swingSpring.current, swingTarget, STIFFNESS, DAMPING);
+        tiltXSpring.current = updateSpring(tiltXSpring.current, tiltXTarget, STIFFNESS * 1.2, DAMPING);
+        tiltYSpring.current = updateSpring(tiltYSpring.current, tiltYTarget, STIFFNESS * 1.2, DAMPING);
       } else {
-        // Return to center
-        swingSpring.current = updateSpring(
-          swingSpring.current,
-          0,
-          STIFFNESS * 0.6,
-          DAMPING
-        );
-        tiltXSpring.current = updateSpring(
-          tiltXSpring.current,
-          0,
-          STIFFNESS * 0.6,
-          DAMPING
-        );
-        tiltYSpring.current = updateSpring(
-          tiltYSpring.current,
-          0,
-          STIFFNESS * 0.6,
-          DAMPING
-        );
+        swingSpring.current = updateSpring(swingSpring.current, 0, STIFFNESS * 0.6, DAMPING);
+        tiltXSpring.current = updateSpring(tiltXSpring.current, 0, STIFFNESS * 0.6, DAMPING);
+        tiltYSpring.current = updateSpring(tiltYSpring.current, 0, STIFFNESS * 0.6, DAMPING);
       }
 
       setSwingRotation(swingSpring.current.current);
@@ -205,9 +172,14 @@ export default function LanyardBadge() {
     borderRadius: 2,
     overflow: "hidden",
     backgroundColor: "#fafafa",
+    // Hanya shadow yang di-adjust berdasarkan tema background website
     boxShadow: isHovered
-      ? "0 25px 60px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08)"
-      : "0 15px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06)",
+      ? isDark
+        ? "0 25px 60px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4)"
+        : "0 25px 60px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08)"
+      : isDark
+        ? "0 15px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3)"
+        : "0 15px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06)",
     transition: "box-shadow 0.4s ease",
     transformStyle: "preserve-3d",
   };
@@ -215,8 +187,7 @@ export default function LanyardBadge() {
   const holographicBg: React.CSSProperties = {
     position: "absolute",
     inset: 0,
-    background:
-      "linear-gradient(135deg, #fafafa 0%, #e8e8e8 25%, #f0f0f0 50%, #dcdcdc 75%, #f5f5f5 100%)",
+    backgroundImage: "linear-gradient(135deg, #fafafa 0%, #e8e8e8 25%, #f0f0f0 50%, #dcdcdc 75%, #f5f5f5 100%)",
     backgroundSize: "400% 400%",
     animation: "holographic-shift 4s ease-in-out infinite",
   };
@@ -224,8 +195,7 @@ export default function LanyardBadge() {
   const holographicOverlay: React.CSSProperties = {
     position: "absolute",
     inset: 0,
-    background:
-      "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
+    backgroundImage: "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
     backgroundSize: "200% 200%",
     animation: "shimmer 3s ease-in-out infinite",
   };
@@ -245,23 +215,6 @@ export default function LanyardBadge() {
         perspective: 1200,
       }}
     >
-      {/* CSS keyframes injected via style tag */}
-      <style>{`
-        @keyframes holographic-shift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        @keyframes shimmer {
-          0% { background-position: -200% -200%; }
-          100% { background-position: 200% 200%; }
-        }
-        @keyframes lanyard-rope-sway {
-          0%, 100% { transform: skewX(0deg); }
-          25% { transform: skewX(0.5deg); }
-          75% { transform: skewX(-0.5deg); }
-        }
-      `}</style>
-
       {/* ── Anchor Point ─────────────────────────────────────────────── */}
       <div
         style={{
@@ -291,8 +244,7 @@ export default function LanyardBadge() {
           style={{
             width: 2,
             height: 55,
-            background:
-              "linear-gradient(to bottom, #333, #555, #333)",
+            background: "linear-gradient(to bottom, #333, #555, #333)",
             borderRadius: 1,
             transform: `skewX(${swingRotation * 0.1}deg)`,
             transition: "transform 0.1s linear",
@@ -531,7 +483,7 @@ export default function LanyardBadge() {
                   justifyContent: "space-between",
                 }}
               >
-                {/* QR Pattern */}
+                {/* QR Pattern (Dikembalikan ke warna putih asli) */}
                 <QrDecoration />
                 {/* Subtitle + ID */}
                 <div
@@ -571,8 +523,7 @@ export default function LanyardBadge() {
               style={{
                 ...cardFace,
                 transform: "rotateY(180deg)",
-                boxShadow:
-                  "0 15px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06)",
+                boxShadow: "0 15px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06)",
               }}
             >
               {/* Holographic gradient background */}
@@ -665,7 +616,7 @@ export default function LanyardBadge() {
         </div>
       </motion.div>
 
-      {/* Flip hint */}
+      {/* Flip hint (Hanya teks ini yang berubah warna) */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -678,7 +629,7 @@ export default function LanyardBadge() {
               fontSize: 8,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "rgba(0,0,0,0.25)",
+              color: isDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)",
               fontWeight: 400,
             }}
           >

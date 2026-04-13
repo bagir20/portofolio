@@ -2,99 +2,71 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const skillCategories = [
-  {
-    title: "Web Development",
-    skills: [
-      "HTML & CSS",
-      "JavaScript",
-      "PHP",
-      "React.js",
-      "Next.js",
-      "Node.js & Express.js",
-      "Laravel",
-      "CodeIgniter 4",
-      "MySQL",
-      "PostgreSQL",
-    ],
-  },
-  {
-    title: "Tools & Deployment",
-    skills: [
-      "Supabase",
-      "Prisma",
-      "Vercel",
-      "Git & GitHub",
-      "Canva",
-      "Adobe Photoshop",
-    ],
-  },
-  {
-    title: "Administrasi & Data",
-    skills: [
-      "Microsoft Word",
-      "Microsoft Excel",
-      "Microsoft PowerPoint",
-      "Analisis Data Dasar",
-      "Python (Dasar)",
-      "Kearsipan Digital (SRIKANDI)",
-      "Manajemen Dokumen",
-    ],
-  },
-  {
-    title: "AI Tools",
-    skills: [
-      "ChatGPT",
-      "Claude",
-      "Gemini",
-    ],
-  },
-];
+import { useTranslations } from "next-intl";
 
 export default function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const t = useTranslations("skills");
+
+  const skillCategories = [
+    {
+      title: "Web Development",
+      skills: [
+        "HTML & CSS", "JavaScript", "PHP", "React.js", "Next.js",
+        "Node.js & Express.js", "Laravel", "CodeIgniter 4", "MySQL", "PostgreSQL",
+      ],
+    },
+    {
+      title: "Tools & Deployment",
+      skills: ["Supabase", "Prisma", "Vercel", "Git & GitHub", "Canva", "Adobe Photoshop"],
+    },
+    {
+      title: t("cat_admin"),
+      skills: [
+        "Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint",
+        t("skill_data_analysis"),
+        "Python (Basic)",
+        t("skill_digital_archive"),
+        t("skill_doc_management"),
+      ],
+    },
+    {
+      title: "AI Tools",
+      skills: ["ChatGPT", "Claude", "Gemini"],
+    },
+  ];
 
   return (
-    <section
-      id="skills"
-      className="py-24 md:py-32 bg-neutral-50/50"
-      ref={ref}
-    >
+    <section id="skills" className="py-24 md:py-32 bg-neutral-50/50 dark:bg-neutral-950" ref={ref}>
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        {/* Section Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <span className="text-xs tracking-[0.2em] uppercase text-neutral-400">
-            02 — Keahlian
+          <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500">
+            {t("label")}
           </span>
         </motion.div>
 
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16 max-w-xl"
         >
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-neutral-900 mb-4">
-            Kemampuan yang
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-neutral-900 dark:text-neutral-100 mb-4">
+            {t("heading")}
             <br />
-            <span className="text-neutral-400">saya miliki.</span>
+            <span className="text-neutral-400 dark:text-neutral-600">{t("heading_accent")}</span>
           </h2>
-          <p className="text-neutral-500 font-light leading-relaxed">
-            Kombinasi kemampuan teknis dan administratif yang saya kembangkan
-            selama studi dan pengalaman kerja — siap diterapkan dalam lingkungan
-            profesional.
+          <p className="text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
+            {t("description")}
           </p>
         </motion.div>
 
-        {/* Skills Grid — 2 kolom atas, 2 kolom bawah */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {skillCategories.map((category, catIndex) => (
             <motion.div
@@ -103,7 +75,7 @@ export default function Skills() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + catIndex * 0.15 }}
             >
-              <h3 className="text-sm font-medium tracking-[0.1em] uppercase text-neutral-900 mb-8 pb-3 border-b border-neutral-200">
+              <h3 className="text-sm font-medium tracking-[0.1em] uppercase text-neutral-900 dark:text-neutral-100 mb-8 pb-3 border-b border-neutral-200 dark:border-neutral-700">
                 {category.title}
               </h3>
               <div className="space-y-3">
@@ -118,10 +90,8 @@ export default function Skills() {
                     }}
                     className="flex items-center gap-3"
                   >
-                    <span className="w-1 h-1 rounded-full bg-neutral-300 shrink-0" />
-                    <span className="text-sm text-neutral-600 font-light">
-                      {skill}
-                    </span>
+                    <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-neutral-500 shrink-0" />
+                    <span className="text-sm text-neutral-600 dark:text-neutral-400 font-light">{skill}</span>
                   </motion.div>
                 ))}
               </div>

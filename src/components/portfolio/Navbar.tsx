@@ -2,27 +2,50 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-
-const navLinks = [
-  { name: "Beranda", href: "#home" },
-  { name: "Tentang", href: "#about" },
-  { name: "Keahlian", href: "#skills" },
-  { name: "Proyek", href: "#projects" },
-  { name: "Pengalaman", href: "#experience" },
-  { name: "Kontak", href: "#contact" },
-];
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter, usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
+  const t = useTranslations("nav");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { setTheme, resolvedTheme } = useTheme();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const navLinks = [
+    { name: t("home"), href: "#home" },
+    { name: t("about"), href: "#about" },
+    { name: t("skills"), href: "#skills" },
+    { name: t("projects"), href: "#projects" },
+    { name: t("experience"), href: "#experience" },
+    { name: t("contact"), href: "#contact" },
+  ];
+
+  const toggleLang = () => {
+    const next = locale === "id" ? "en" : "id";
+    const newPath = pathname.replace(`/${locale}`, `/${next}`);
+    router.push(newPath);
+  };
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Detect active section
       const sections = navLinks.map((link) => link.href.substring(1));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
@@ -56,7 +79,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, delay: 2.2, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/80 backdrop-blur-md border-b border-neutral-100"
+            ? "bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-100 dark:border-neutral-800"
             : "bg-transparent"
         }`}
       >
@@ -69,7 +92,7 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick("#home");
               }}
-              className="text-lg font-light tracking-[0.2em] text-neutral-900 hover:text-neutral-600 transition-colors"
+              className="text-lg font-light tracking-[0.2em] text-neutral-900 dark:text-neutral-100 hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors"
             >
               MB
             </a>
@@ -86,34 +109,70 @@ export default function Navbar() {
                   }}
                   className={`relative text-xs tracking-[0.15em] uppercase transition-colors duration-300 py-1 ${
                     activeSection === link.href.substring(1)
-                      ? "text-neutral-900"
-                      : "text-neutral-400 hover:text-neutral-900"
+                      ? "text-neutral-900 dark:text-neutral-100"
+                      : "text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100"
                   }`}
                 >
                   {link.name}
                   {activeSection === link.href.substring(1) && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-neutral-900"
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
+                      className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-neutral-900 dark:bg-neutral-100"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
                 </a>
               ))}
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300"
+                aria-label="Toggle theme"
+              >
+                {mounted && resolvedTheme === "dark" ? (
+                  <Sun size={16} />
+                ) : (
+                  <Moon size={16} />
+                )}
+              </button>
+
+              {/* Language Switcher */}
+              <button
+                onClick={toggleLang}
+                className="text-xs tracking-[0.15em] uppercase text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300 border border-neutral-200 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-100 px-3 py-1"
+              >
+                {locale === "id" ? "EN" : "ID"}
+              </button>
             </div>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="md:hidden p-2 text-neutral-900"
-              aria-label="Toggle menu"
-            >
-              {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            {/* Mobile: Theme + Lang Switcher + Menu Toggle */}
+            <div className="md:hidden flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-neutral-400 dark:text-neutral-500"
+                aria-label="Toggle theme"
+              >
+                {mounted && resolvedTheme === "dark" ? (
+                  <Sun size={16} />
+                ) : (
+                  <Moon size={16} />
+                )}
+              </button>
+              <button
+                onClick={toggleLang}
+                className="text-xs tracking-[0.15em] uppercase text-neutral-400 dark:text-neutral-500 border border-neutral-200 dark:border-neutral-700 px-2 py-1"
+              >
+                {locale === "id" ? "EN" : "ID"}
+              </button>
+              <button
+                onClick={() => setIsMobileOpen(!isMobileOpen)}
+                className="p-2 text-neutral-900 dark:text-neutral-100"
+                aria-label="Toggle menu"
+              >
+                {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -126,7 +185,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white pt-20 px-6"
+            className="fixed inset-0 z-40 bg-white dark:bg-neutral-950 pt-20 px-6"
           >
             <div className="flex flex-col gap-6 py-8">
               {navLinks.map((link, i) => (
@@ -140,7 +199,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="text-2xl font-light text-neutral-900 hover:text-neutral-500 transition-colors"
+                  className="text-2xl font-light text-neutral-900 dark:text-neutral-100 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors"
                 >
                   {link.name}
                 </motion.a>
