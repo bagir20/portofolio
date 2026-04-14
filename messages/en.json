@@ -46,6 +46,12 @@
   "aria_live": "Open live",
   "aria_gallery": "View gallery",
   "aria_close": "Close",
+  "auth_title": "Demo Accounts",
+  "auth_desc": "Use the following credentials to try the app:",
+  "auth_role": "Role",
+  "auth_username": "Username",
+  "auth_password": "Password",
+  "auth_btn": "Open App",
   "pos_caffe": {
     "desc": "A Point of Sale system for coffee shop operations — featuring inventory management, real-time kitchen display, and transaction reporting."
   },

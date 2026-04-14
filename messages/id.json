@@ -46,9 +46,18 @@
   "aria_live": "Buka live",
   "aria_gallery": "Lihat galeri",
   "aria_close": "Tutup",
+  "auth_title": "Demo Accounts",
+  "auth_desc": "Use the following credentials to try the app:",
+  "auth_role": "Role",
+  "auth_username": "Username",
+  "auth_password": "Password",
+  "auth_btn": "Open App",
+  
   "pos_caffe": {
     "desc": "Sistem Point of Sale untuk operasional kedai kopi — mencakup manajemen inventaris, tampilan pesanan dapur secara real-time, dan pelaporan transaksi."
   },
+
+
   "stockflow": {
     "desc": "Aplikasi manajemen inventaris dengan pemindaian QR Code untuk pemantauan stok masuk dan keluar secara real-time."
   },

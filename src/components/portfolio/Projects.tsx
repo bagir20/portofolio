@@ -2,9 +2,16 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ArrowUpRight, Github, X, ChevronLeft, ChevronRight, Images } from "lucide-react";
+import { ArrowUpRight, Github, X, ChevronLeft, ChevronRight, Images, KeyRound } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+
+// Tipe data untuk kredensial
+interface AuthAccount {
+  role: string;
+  username: string;
+  password: string;
+}
 
 export default function Projects() {
   const ref = useRef(null);
@@ -22,6 +29,11 @@ export default function Projects() {
       link: "https://bagir-pos-caffe.vercel.app",
       github: "https://github.com/bagir20/pos-caffeshop",
       gallery: null,
+      // Tambahkan auth di sini
+      auth: [
+        { role: "Barista", username: "barista", password: "1234" },
+        { role: "Manager", username: "manager", password: "5678" },
+      ] as AuthAccount[],
     },
     {
       title: "Stockflow Inventory",
@@ -33,6 +45,10 @@ export default function Projects() {
       link: "https://stockflow-inventory-system-psi.vercel.app/",
       github: "https://github.com/bagir20/stockflow-inventory-system",
       gallery: null,
+      // Tambahkan auth di sini
+      auth: [
+        { role: "Admin", username: "admin@stockflow.com", password: "password123" },
+      ] as AuthAccount[],
     },
     {
       title: "Sistem Bank Sampah",
@@ -86,6 +102,13 @@ export default function Projects() {
   const [activeCategory, setActiveCategory] = useState(t("filter_all"));
   const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // State baru untuk Modal Auth
+  const [authModal, setAuthModal] = useState<{
+    title: string;
+    link: string;
+    accounts: AuthAccount[];
+  } | null>(null);
 
   const filteredProjects =
     activeCategory === t("filter_all")
@@ -109,14 +132,31 @@ export default function Projects() {
     setCurrentImageIndex((prev) => (prev - 1 + selectedGallery.length) % selectedGallery.length);
   };
 
+  // Fungsi baru untuk handle klik Live Demo
+  const handleLiveClick = (project: typeof projects[0]) => {
+    if (project.auth) {
+      setAuthModal({
+        title: project.title,
+        link: project.link,
+        accounts: project.auth,
+      });
+    } else {
+      window.open(project.link, "_blank", "noopener,noreferrer");
+    }
+  };
+
+  // Lock scroll jika modal auth terbuka
   useEffect(() => {
-    document.body.style.overflow = selectedGallery ? "hidden" : "";
+    document.body.style.overflow = (selectedGallery || authModal) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [selectedGallery]);
+  }, [selectedGallery, authModal]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeGallery();
+      if (e.key === "Escape") {
+        closeGallery();
+        setAuthModal(null);
+      }
       if (e.key === "ArrowRight") nextImage();
       if (e.key === "ArrowLeft") prevImage();
     };
@@ -217,16 +257,16 @@ export default function Projects() {
                     >
                       <Github size={16} />
                     </a>
+                    
+                    {/* MODIF: Jika ada link, cek apakah punya auth atau tidak */}
                     {project.link && project.link !== "#" ? (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => handleLiveClick(project)}
                         className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
                         aria-label={t("aria_live")}
                       >
                         <ArrowUpRight size={16} />
-                      </a>
+                      </button>
                     ) : (
                       <button
                         onClick={() => project.gallery && openGallery(project.gallery)}
@@ -238,9 +278,20 @@ export default function Projects() {
                     )}
                   </div>
                 </div>
-                <h3 className="text-xl font-light text-neutral-900 dark:text-neutral-100 mb-3 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-                  {project.title}
-                </h3>
+                
+                <div className="flex items-center gap-3 mb-3">
+                  <h3 className="text-xl font-light text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+                    {project.title}
+                  </h3>
+                  {/* Ikon Kecil Penanda Ada Auth */}
+                  {project.auth && (
+                    <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-full">
+                      <KeyRound size={10} className="text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-[9px] font-medium text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Demo</span>
+                    </div>
+                  )}
+                </div>
+
                 <p className="text-sm text-neutral-500 dark:text-neutral-400 font-light leading-relaxed mb-5">
                   {project.description}
                 </p>
@@ -260,7 +311,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Gallery Modal — selalu gelap, tidak perlu dark: */}
+      {/* ========== 1. Gallery Modal (Gambar) ========== */}
       <AnimatePresence>
         {selectedGallery && (
           <motion.div
@@ -314,6 +365,103 @@ export default function Projects() {
                   </div>
                 </>
               )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ========== 2. Auth Modal (Kredensial Demo) ========== */}
+      <AnimatePresence>
+        {authModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setAuthModal(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="relative w-full max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 pb-4 border-b border-neutral-100 dark:border-neutral-800">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg">
+                    <KeyRound size={18} className="text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-normal text-neutral-900 dark:text-neutral-100">
+                      {t("auth_title")}
+                    </h3>
+                    <p className="text-xs text-neutral-400 dark:text-neutral-500">
+                      {authModal.title}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setAuthModal(null)}
+                  className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors p-1"
+                  aria-label="Close"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Body Credentials */}
+              <div className="p-6 pt-4">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 font-light mb-5">
+                  {t("auth_desc")}
+                </p>
+                
+                <div className="space-y-3">
+                  {authModal.accounts.map((acc, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-4 rounded-lg border ${
+                        idx === 0 
+                          ? "border-neutral-200 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-800/50" 
+                          : "border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900"
+                      }`}
+                    >
+                      <div className="text-xs font-medium text-neutral-900 dark:text-neutral-100 uppercase tracking-wider mb-3">
+                        {acc.role}
+                      </div>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-400 dark:text-neutral-500 text-xs">{t("auth_username")}</span>
+                          <code className="font-mono text-xs text-neutral-700 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                            {acc.username}
+                          </code>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-400 dark:text-neutral-500 text-xs">{t("auth_password")}</span>
+                          <code className="font-mono text-xs text-neutral-700 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                            {acc.password}
+                          </code>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer CTA */}
+              <div className="p-6 pt-2">
+                <a
+                  href={authModal.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setAuthModal(null)}
+                  className="block w-full text-center px-6 py-3 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 text-xs tracking-[0.15em] uppercase hover:bg-neutral-800 dark:hover:bg-neutral-300 transition-colors duration-300 rounded"
+                >
+                  {t("auth_btn")}
+                </a>
+              </div>
             </motion.div>
           </motion.div>
         )}
