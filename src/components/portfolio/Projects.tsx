@@ -13,6 +13,13 @@ interface AuthAccount {
   password: string;
 }
 
+// Tipe data untuk caption gallery
+interface GalleryCaption {
+  title: string;
+  desc: string;
+  step: string; // label langkah, misal "Step 1 of 5 — Dashboard"
+}
+
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -23,13 +30,13 @@ export default function Projects() {
       title: "POS Caffeshop",
       description: t("pos_caffe.desc"),
       tags: ["React", "Node.js", "Express", "PostgreSQL"],
-      category: t("cat_product"),
+      category: t("cat_web_app"), // Update kategori
       year: "2026",
       image: "/images/projects/pos-caffe/pos-caffe.png",
       link: "https://bagir-pos-caffe.vercel.app",
       github: "https://github.com/bagir20/pos-caffeshop",
       gallery: null,
-      // Tambahkan auth di sini
+      galleryInfo: null,
       auth: [
         { role: "Barista", username: "barista", password: "1234" },
         { role: "Manager", username: "manager", password: "5678" },
@@ -39,13 +46,13 @@ export default function Projects() {
       title: "Stockflow Inventory",
       description: t("stockflow.desc"),
       tags: ["React", "Node.js", "Express", "PostgreSQL"],
-      category: t("cat_product"),
+      category: t("cat_web_app"), // Update kategori
       year: "2026",
       image: "/images/projects/stockflow/sf-cover.png",
       link: "https://stockflow-inventory-system-psi.vercel.app/",
       github: "https://github.com/bagir20/stockflow-inventory-system",
       gallery: null,
-      // Tambahkan auth di sini
+      galleryInfo: null,
       auth: [
         { role: "Admin", username: "admin@stockflow.com", password: "password123" },
       ] as AuthAccount[],
@@ -54,7 +61,7 @@ export default function Projects() {
       title: "Sistem Bank Sampah",
       description: t("bank_sampah.desc"),
       tags: ["CodeIgniter", "PHP", "MySQL", "Bootstrap"],
-      category: t("cat_si"),
+      category: t("cat_web_app"), // Update kategori
       year: "2025",
       image: "/images/projects/bank-sampah/project1.png",
       link: "#",
@@ -66,23 +73,25 @@ export default function Projects() {
         "/images/projects/bank-sampah/project1ss4.png",
         "/images/projects/bank-sampah/project1ss5.png",
       ],
+      galleryInfo: null,
     },
     {
       title: "Wanpicture",
       description: t("wanpicture.desc"),
       tags: ["Next.js", "TypeScript", "Tailwind", "WhatsApp API"],
-      category: t("cat_product"),
+      category: t("cat_web_app"), // Update kategori
       year: "2026",
       image: "/images/projects/wanpicture/wanpicture.png",
       link: "https://wanpicture.art",
       github: "https://github.com/bagir20/wanpicture",
       gallery: null,
+      galleryInfo: null,
     },
     {
       title: "Laporan Lapangan",
       description: t("laporan_lapangan.desc"),
       tags: ["Laravel", "PHP", "MySQL", "Tailwind"],
-      category: t("cat_si"),
+      category: t("cat_web_app"), // Update kategori
       year: "2026",
       image: "/images/projects/laporan-lapangan/petugas1.png",
       link: "#",
@@ -94,16 +103,114 @@ export default function Projects() {
         "/images/projects/laporan-lapangan/laporanadmin.png",
         "/images/projects/laporan-lapangan/detaillaporan.png",
       ],
+      galleryInfo: null,
+    },
+    {
+      title: "Retail Sales Analysis",
+      description: t("retail_analysis.desc"),
+      tags: ["Python", "Pandas", "Seaborn", "SQL", "Power BI", "Statsmodels"],
+      category: t("cat_data_analyst"), // Update kategori
+      year: "2025",
+      image: "/images/projects/data-analysis/powerbi-dashboard.png",
+      link: "#",
+      github: "https://github.com/bagir20/retail-sales-analysis",
+      gallery: [
+        "/images/projects/data-analysis/eda-category-sales.png",
+        "/images/projects/data-analysis/eda-yearly-trend.png",
+        "/images/projects/data-analysis/rfm-segmentation.png",
+        "/images/projects/data-analysis/demand-forecast.png",
+        "/images/projects/data-analysis/sql-top-products.png",
+        "/images/projects/data-analysis/powerbi-dashboard.png",
+      ],
+      galleryInfo: [
+        {
+          title: t("retail_analysis.slide1_title"),
+          desc: t("retail_analysis.slide1_desc"),
+          step: t("retail_analysis.slide1_step"),
+        },
+        {
+          title: t("retail_analysis.slide2_title"),
+          desc: t("retail_analysis.slide2_desc"),
+          step: t("retail_analysis.slide2_step"),
+        },
+        {
+          title: t("retail_analysis.slide3_title"),
+          desc: t("retail_analysis.slide3_desc"),
+          step: t("retail_analysis.slide3_step"),
+        },
+        {
+          title: t("retail_analysis.slide4_title"),
+          desc: t("retail_analysis.slide4_desc"),
+          step: t("retail_analysis.slide4_step"),
+        },
+        {
+          title: t("retail_analysis.slide5_title"),
+          desc: t("retail_analysis.slide5_desc"),
+          step: t("retail_analysis.slide5_step"),
+        },
+        {
+          title: t("retail_analysis.slide6_title"),
+          desc: t("retail_analysis.slide6_desc"),
+          step: t("retail_analysis.slide6_step"),
+        },
+      ] as GalleryCaption[],
+    },
+    {
+      title: "Food Estate Analysis", 
+      description: t("food_estate.desc"),
+      tags: ["MySQL", "Python", "Pandas", "Power BI"],
+      category: t("cat_data_analyst"),
+      year: "2025",
+      image: "/images/projects/food-estate/food-estate-dashboard.jpg", // Ganti dengan path gambar aslimu
+      link: "#",
+      github: "https://github.com/bagir20/food-estate-analysis", // Ganti link repo aslimu
+      gallery: [
+        "/images/projects/food-estate/food-estate-dashboard.jpg",
+        "/images/projects/food-estate/scatter-plot.png",
+        "/images/projects/food-estate/line-chart.png",
+        "/images/projects/food-estate/sql-query.png",
+        "/images/projects/food-estate/pandas-dataframe.png",
+      ],
+      galleryInfo: [
+        {
+          title: t("food_estate.slide1_title"),
+          desc: t("food_estate.slide1_desc"),
+          step: t("food_estate.slide1_step"),
+        },
+        {
+          title: t("food_estate.slide2_title"),
+          desc: t("food_estate.slide2_desc"),
+          step: t("food_estate.slide2_step"),
+        },
+        {
+          title: t("food_estate.slide3_title"),
+          desc: t("food_estate.slide3_desc"),
+          step: t("food_estate.slide3_step"),
+        },
+        {
+          title: t("food_estate.slide4_title"),
+          desc: t("food_estate.slide4_desc"),
+          step: t("food_estate.slide4_step"),
+        },
+        {
+          title: t("food_estate.slide5_title"),
+          desc: t("food_estate.slide5_desc"),
+          step: t("food_estate.slide5_step"),
+        },
+      ] as GalleryCaption[],
     },
   ];
 
-  const categories = [t("filter_all"), t("cat_si"), t("cat_product")];
+  // Update Kategori Filter
+  const categories = [t("filter_all"), t("cat_web_app"), t("cat_data_analyst")];
 
   const [activeCategory, setActiveCategory] = useState(t("filter_all"));
-  const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
+  const [selectedGallery, setSelectedGallery] = useState<{
+    images: string[];
+    captions: GalleryCaption[] | null;
+  } | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  // State baru untuk Modal Auth
+
   const [authModal, setAuthModal] = useState<{
     title: string;
     link: string;
@@ -115,8 +222,8 @@ export default function Projects() {
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
-  const openGallery = (galleryImages: string[]) => {
-    setSelectedGallery(galleryImages);
+  const openGallery = (galleryImages: string[], galleryCaptions: GalleryCaption[] | null = null) => {
+    setSelectedGallery({ images: galleryImages, captions: galleryCaptions });
     setCurrentImageIndex(0);
   };
 
@@ -124,15 +231,14 @@ export default function Projects() {
 
   const nextImage = () => {
     if (!selectedGallery) return;
-    setCurrentImageIndex((prev) => (prev + 1) % selectedGallery.length);
+    setCurrentImageIndex((prev) => (prev + 1) % selectedGallery.images.length);
   };
 
   const prevImage = () => {
     if (!selectedGallery) return;
-    setCurrentImageIndex((prev) => (prev - 1 + selectedGallery.length) % selectedGallery.length);
+    setCurrentImageIndex((prev) => (prev - 1 + selectedGallery.images.length) % selectedGallery.images.length);
   };
 
-  // Fungsi baru untuk handle klik Live Demo
   const handleLiveClick = (project: typeof projects[0]) => {
     if (project.auth) {
       setAuthModal({
@@ -145,7 +251,6 @@ export default function Projects() {
     }
   };
 
-  // Lock scroll jika modal auth terbuka
   useEffect(() => {
     document.body.style.overflow = (selectedGallery || authModal) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -163,6 +268,8 @@ export default function Projects() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedGallery]);
+
+  const currentCaption = selectedGallery?.captions?.[currentImageIndex] ?? null;
 
   return (
     <section id="projects" className="py-24 md:py-32 bg-white dark:bg-neutral-950 relative" ref={ref}>
@@ -223,7 +330,7 @@ export default function Projects() {
             >
               <div
                 className={`aspect-[1915/928] bg-neutral-50 dark:bg-neutral-800 overflow-hidden relative ${project.gallery ? "cursor-zoom-in" : ""}`}
-                onClick={() => project.gallery && openGallery(project.gallery)}
+                onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
               >
                 <Image
                   src={project.image}
@@ -248,17 +355,18 @@ export default function Projects() {
                     {project.category} — {project.year}
                   </span>
                   <div className="flex gap-3 items-center">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                      aria-label="GitHub"
-                    >
-                      <Github size={16} />
-                    </a>
-                    
-                    {/* MODIF: Jika ada link, cek apakah punya auth atau tidak */}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                        aria-label="GitHub"
+                      >
+                        <Github size={16} />
+                      </a>
+                    )}
+
                     {project.link && project.link !== "#" ? (
                       <button
                         onClick={() => handleLiveClick(project)}
@@ -269,7 +377,7 @@ export default function Projects() {
                       </button>
                     ) : (
                       <button
-                        onClick={() => project.gallery && openGallery(project.gallery)}
+                        onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
                         className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
                         aria-label={t("aria_gallery")}
                       >
@@ -278,12 +386,11 @@ export default function Projects() {
                     )}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3 mb-3">
                   <h3 className="text-xl font-light text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
                     {project.title}
                   </h3>
-                  {/* Ikon Kecil Penanda Ada Auth */}
                   {project.auth && (
                     <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-full">
                       <KeyRound size={10} className="text-emerald-600 dark:text-emerald-400" />
@@ -311,7 +418,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* ========== 1. Gallery Modal (Gambar) ========== */}
+      {/* ========== 1. Gallery Modal ========== */}
       <AnimatePresence>
         {selectedGallery && (
           <motion.div
@@ -325,7 +432,11 @@ export default function Projects() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative max-w-5xl w-full max-h-[90vh] aspect-video bg-transparent"
+              className={`relative w-full bg-transparent ${
+                currentCaption
+                  ? "max-w-5xl h-[85vh] flex flex-col"
+                  : "max-w-5xl max-h-[90vh] aspect-video"
+              }`}
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -336,33 +447,65 @@ export default function Projects() {
                 <X size={32} />
               </button>
 
-              <div className="relative w-full h-full bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 shadow-2xl">
+              <div className={`relative w-full bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 shadow-2xl ${
+                currentCaption ? "flex-1 min-h-0" : "h-full"
+              }`}>
                 <Image
-                  src={selectedGallery[currentImageIndex]}
-                  alt={`Screenshot ${currentImageIndex + 1}`}
+                  src={selectedGallery.images[currentImageIndex]}
+                  alt={currentCaption?.title ?? `Screenshot ${currentImageIndex + 1}`}
                   fill
                   className="object-contain"
                   priority
                 />
               </div>
 
-              {selectedGallery.length > 1 && (
+              {currentCaption && (
+                <motion.div
+                  key={currentImageIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.05 }}
+                  className="mt-3 px-2 pb-1"
+                >
+                  <div className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm rounded-lg border border-neutral-200 dark:border-neutral-800 px-5 py-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] tracking-[0.15em] uppercase text-neutral-400 dark:text-neutral-500 font-medium">
+                        {currentCaption.step}
+                      </span>
+                      <span className="text-[10px] text-neutral-400 dark:text-neutral-500">
+                        {currentImageIndex + 1} / {selectedGallery.images.length}
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 mb-1.5 leading-snug">
+                      {currentCaption.title}
+                    </h4>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
+                      {currentCaption.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+
+              {selectedGallery.images.length > 1 && (
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-md transition-all"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-neutral-900/60 hover:bg-neutral-900/80 text-white rounded-full backdrop-blur-md border border-white/20 hover:border-white/40 transition-all shadow-lg"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-md transition-all"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-neutral-900/60 hover:bg-neutral-900/80 text-white rounded-full backdrop-blur-md border border-white/20 hover:border-white/40 transition-all shadow-lg"
                   >
                     <ChevronRight size={24} />
                   </button>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-md">
-                    {currentImageIndex + 1} / {selectedGallery.length}
-                  </div>
+
+                  {!currentCaption && (
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-md">
+                      {currentImageIndex + 1} / {selectedGallery.images.length}
+                    </div>
+                  )}
                 </>
               )}
             </motion.div>
@@ -370,7 +513,7 @@ export default function Projects() {
         )}
       </AnimatePresence>
 
-      {/* ========== 2. Auth Modal (Kredensial Demo) ========== */}
+      {/* ========== 2. Auth Modal ========== */}
       <AnimatePresence>
         {authModal && (
           <motion.div
@@ -388,7 +531,6 @@ export default function Projects() {
               className="relative w-full max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header */}
               <div className="flex items-center justify-between p-6 pb-4 border-b border-neutral-100 dark:border-neutral-800">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg">
@@ -412,19 +554,18 @@ export default function Projects() {
                 </button>
               </div>
 
-              {/* Body Credentials */}
               <div className="p-6 pt-4">
                 <p className="text-sm text-neutral-500 dark:text-neutral-400 font-light mb-5">
                   {t("auth_desc")}
                 </p>
-                
+
                 <div className="space-y-3">
                   {authModal.accounts.map((acc, idx) => (
                     <div
                       key={idx}
                       className={`p-4 rounded-lg border ${
-                        idx === 0 
-                          ? "border-neutral-200 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-800/50" 
+                        idx === 0
+                          ? "border-neutral-200 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-800/50"
                           : "border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900"
                       }`}
                     >
@@ -450,7 +591,6 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Footer CTA */}
               <div className="p-6 pt-2">
                 <a
                   href={authModal.link}

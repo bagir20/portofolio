@@ -1,5 +1,5 @@
 {
-"hero": {
+  "hero": {
     "available": "Available for Work",
     "subtitle": "Adaptive Information Systems graduate — ready to contribute in web development, data management, and system administration.",
     "cta_projects": "View Projects",
@@ -14,107 +14,146 @@
     "experience": "Experience",
     "contact": "Contact"
   },
-
   "about": {
-  "label": "01 — About",
-  "greeting": "Hi, I'm",
-  "p1": "A fresh graduate in Information Systems from STMIK Palangkaraya (2021–2025) with a GPA of 3.49. I have a strong interest in web development, data management, graphic design, and technology-based administration.",
-  "p2": "Throughout my studies, I built systems across both backend and frontend, and gained hands-on operational experience through an internship at a government institution.",
-  "p3": "I am an adaptive and detail-oriented individual — comfortable working in both dynamic and structured environments, and always eager to learn new things.",
-  "edu_label": "Education",
-  "edu_degree": "Bachelor of Information Systems",
-  "edu_detail": "STMIK Palangkaraya · 2021 – 2025 · GPA 3.49"
-},
-"skills": {
-  "label": "02 — Skills",
-  "heading": "Technologies &",
-  "heading_accent": "tools I work with.",
-  "description": "A combination of technical and administrative skills built through formal education and direct work experience.",
-  "cat_admin": "Administration & Data",
-  "skill_data_analysis": "Data Analysis",
-  "skill_digital_archive": "Digital Records Management (SRIKANDI)",
-  "skill_doc_management": "Document Management"
-},
-"projects": {
-  "label": "03 — Projects",
-  "heading": "Projects I have",
-  "heading_accent": "built.",
-  "description": "A selection of web applications built for business operations and information systems.",
-  "filter_all": "All",
-  "cat_si": "Information System",
-  "cat_product": "Product",
-  "aria_live": "Open live",
-  "aria_gallery": "View gallery",
-  "aria_close": "Close",
-  "auth_title": "Demo Accounts",
-  "auth_desc": "Use the following credentials to try the app:",
-  "auth_role": "Role",
-  "auth_username": "Username",
-  "auth_password": "Password",
-  "auth_btn": "Open App",
-  "pos_caffe": {
-    "desc": "A Point of Sale system for coffee shop operations — featuring inventory management, real-time kitchen display, and transaction reporting."
+    "label": "01 — About",
+    "greeting": "Hi, I'm",
+    "p1": "A fresh graduate in Information Systems from STMIK Palangkaraya (2021–2025) with a GPA of 3.49. I have a strong interest in web development, data management, graphic design, and technology-based administration.",
+    "p2": "Throughout my studies, I built systems across both backend and frontend, and gained hands-on operational experience through an internship at a government institution.",
+    "p3": "I am an adaptive and detail-oriented individual — comfortable working in both dynamic and structured environments, and always eager to learn new things.",
+    "edu_label": "Education",
+    "edu_degree": "Bachelor of Information Systems",
+    "edu_detail": "STMIK Palangkaraya · 2021 – 2025 · GPA 3.49"
   },
-  "stockflow": {
-    "desc": "An inventory management app with QR Code scanning for real-time tracking of incoming and outgoing stock."
+  "skills": {
+    "label": "02 — Skills",
+    "heading": "Technologies &",
+    "heading_accent": "tools I work with.",
+    "description": "A combination of technical and administrative skills built through formal education and direct work experience.",
+    "cat_admin": "Administration & Data",
+    "skill_data_analysis": "Data Analysis",
+    "skill_digital_archive": "Digital Records Management (SRIKANDI)",
+    "skill_doc_management": "Document Management"
   },
-  "bank_sampah": {
-    "desc": "A waste bank digitalization platform — managing customer data, waste deposit transactions, and automated reporting."
+  
+  "projects": {
+    "label": "03 — Projects",
+    "heading": "Projects I have",
+    "heading_accent": "built.",
+    "description": "A selection of web applications, data analysis projects, and information systems I've built.",
+    "filter_all": "All",
+    "cat_web_app": "Web App",
+    "cat_data_analyst": "Data Analysis",
+    "aria_live": "Open live",
+    "aria_gallery": "View gallery",
+    "aria_close": "Close",
+    "auth_title": "Demo Accounts",
+    "auth_desc": "Use the following credentials to try the app:",
+    "auth_role": "Role",
+    "auth_username": "Username",
+    "auth_password": "Password",
+    "auth_btn": "Open App",
+    "pos_caffe": {
+      "desc": "A Point of Sale system for coffee shop operations — featuring inventory management, real-time kitchen display, and transaction reporting."
+    },
+    "stockflow": {
+      "desc": "An inventory management app with QR Code scanning for real-time tracking of incoming and outgoing stock."
+    },
+    "bank_sampah": {
+      "desc": "A waste bank digitalization platform — managing customer data, waste deposit transactions, and automated reporting."
+    },
+    "wanpicture": {
+      "desc": "A photography studio booking platform with no registration required. Clients fill out a form and the admin receives instant WhatsApp notifications for confirmation."
+    },
+    "laporan_lapangan": {
+      "desc": "A field reporting system with geospatial data input, multi-level validation, and automated report compilation."
+    },
+    "retail_analysis": {
+      "desc": "An end-to-end retail sales analysis project — from exploratory data analysis and RFM customer segmentation to demand forecasting using Holt-Winters, with a Power BI dashboard for stakeholder presentation.",
+      "slide1_step": "Step 1 of 6 — Exploratory Data Analysis",
+      "slide1_title": "Sales by Category",
+      "slide1_desc": "Raw dataset loaded with pandas and grouped by product category. Technology leads with $836K in total sales, but Furniture only yields a 2.49% profit margin — a critical insight discovered during initial exploration.",
+      "slide2_step": "Step 1 of 6 — Exploratory Data Analysis",
+      "slide2_title": "Yearly Sales Trend",
+      "slide2_desc": "Monthly sales aggregated across 2014–2017 using groupby and datetime parsing. The trend reveals consistent year-over-year growth with Q4 seasonal peaks, indicating a reliable demand pattern.",
+      "slide3_step": "Step 2 of 6 — Customer Segmentation",
+      "slide3_title": "RFM Segmentation",
+      "slide3_desc": "Each customer scored 1–4 on Recency, Frequency, and Monetary value. The combined RFM score classifies customers into 8 segments — 28% are Loyal customers, while 6.9% are Lost and require re-engagement strategies.",
+      "slide4_step": "Step 3 of 6 — Demand Forecasting",
+      "slide4_title": "Holt-Winters Forecast",
+      "slide4_desc": "Monthly sales resampled and fed into the Holt-Winters Exponential Smoothing model (statsmodels). The model captures trend and seasonality to predict the next 6 months, peaking at $74,874 in March 2018 with a 95% confidence interval.",
+      "slide5_step": "Step 4 of 6 — SQL Analysis",
+      "slide5_title": "Top Products via SQL",
+      "slide5_desc": "Dataset loaded into an in-memory SQLite database. SQL queries extract top 10 products by revenue — results are fetched back into pandas and visualized to identify high-value products for inventory prioritization.",
+      "slide6_step": "Step 5 of 6 — Dashboard",
+      "slide6_title": "Power BI Dashboard",
+      "slide6_desc": "All analysis insights consolidated into an interactive Power BI dashboard — KPI summary cards, category breakdown, monthly trends, RFM segments, and regional profit distribution for non-technical stakeholder presentation."
+    },
+    "food_estate": {
+      "desc": "End-to-end agricultural data analysis using SQL, Python, and Power BI. The system processes harvest data, land productivity, and distribution to provide insights on market efficiency and farmer profitability.",
+      "slide1_step": "Step 1 of 5 — Dashboard",
+      "slide1_title": "Executive Dashboard",
+      "slide1_desc": "Consolidating all data into a single interactive view. Features regional filters (District/Village) to monitor distribution performance, total revenue per commodity, and market trends specifically per area.",
+      "slide2_step": "Step 2 of 5 — Land Efficiency",
+      "slide2_title": "Productivity Analysis",
+      "slide2_desc": "Scatter plot visualization to measure farmer efficiency. Mapping 'Land Size' vs 'Productivity (Kg/Ha)' to identify outliers: farmers with large land but low productivity, or small farmers with maximum yield.",
+      "slide3_step": "Step 3 of 5 — Market Trend",
+      "slide3_title": "Seasonality Analysis",
+      "slide3_desc": "Monthly revenue line chart to identify harvest and distribution seasonal patterns. Helps predict 'High Season' and 'Low Season' in the operational year for stock strategy.",
+      "slide4_step": "Step 4 of 5 — Data Extraction",
+      "slide4_title": "Multi-Table SQL Join",
+      "slide4_desc": "Data extraction process from 5 relational tables (Commodity, Village, Farmer, Harvest, Distribution) using complex JOINs. Ensuring data integrity from the database source to the analysis layer.",
+      "slide5_step": "Step 5 of 5 — Transformation",
+      "slide5_title": "Processing with Pandas",
+      "slide5_desc": "Data transformation and cleaning using Pandas. Adding insight columns like 'Harvest Month', 'Productivity per Ha', and 'Distribution Difference' to support analysis in Power BI."
+    }
   },
-  "wanpicture": {
-    "desc": "A photography studio booking platform with no registration required. Clients fill out a form and the admin receives instant WhatsApp notifications for confirmation."
+  "experience": {
+    "label": "04 — Experience",
+    "heading": "My educational &",
+    "heading_accent": "professional journey.",
+    "description": "From vocational school to university, experiences that shaped my skills today.",
+    "at": "at",
+    "edu_degree": {
+      "role": "Bachelor of Computer Science — Information Systems",
+      "desc": "Undergraduate study focused on information systems development. Built various web projects from concept to deployment — institutional systems, e-commerce platforms, and inventory management tools.",
+      "tags": ["Information Systems", "Web Development", "Database", "Software Engineering"]
+    },
+    "intern_dlh": {
+      "role": "Intern — Administrative Intern",
+      "desc": "Responsible for administrative data management and office operations at the Palangka Raya City Environmental Agency. Strengthened document management skills and understanding of government workflows.",
+      "tags": ["Administration", "Data Management", "Government Institution"]
+    },
+    "smk": {
+      "role": "Vocational — Multimedia Major",
+      "desc": "Studied graphic design fundamentals, visual content production, and digital media processing — a foundation that sharpened visual sensibility across every digital product I build.",
+      "tags": ["Graphic Design", "Visual Production", "Digital Media"]
+    },
+    "intern_bigprint": {
+      "role": "Intern — Digital Printing",
+      "desc": "Involved in print design production — from receiving client briefs and adjusting design files to quality control. Developed precision and professionalism under tight deadlines.",
+      "tags": ["Print Design", "Client Brief", "Quality Control"]
+    }
   },
-  "laporan_lapangan": {
-    "desc": "A field reporting system with geospatial data input, multi-level validation, and automated report compilation."
+  "contact": {
+    "label": "05 — Contact",
+    "heading": "Interested in",
+    "heading_accent": "connecting?",
+    "description": "I am open to job opportunities, internships, and collaborative projects. Feel free to reach out via email or social media below.",
+    "location_label": "Location",
+    "field_name": "Name",
+    "field_email": "Email",
+    "field_message": "Message",
+    "placeholder_name": "Your Name",
+    "placeholder_email": "email@example.com",
+    "placeholder_message": "Tell me about your project...",
+    "btn_send": "Send Message",
+    "btn_sent": "Email App Opened",
+    "sent_note": "Please complete the submission in your email app.",
+    "email_subject": "Message from",
+    "email_body_name": "Name:",
+    "email_body_email": "Email:",
+    "email_body_message": "Message:",
+    "footer_copy": "© 2026 Muhammad Bagir. All rights reserved.",
+    "footer_made": "Designed & built with care."
   }
-},
-"experience": {
-  "label": "04 — Experience",
-  "heading": "My educational &",
-  "heading_accent": "professional journey.",
-  "description": "From vocational school to university, experiences that shaped my skills today.",
-  "at": "at",
-  "edu_degree": {
-    "role": "Bachelor of Computer Science — Information Systems",
-    "desc": "Undergraduate study focused on information systems development. Built various web projects from concept to deployment — institutional systems, e-commerce platforms, and inventory management tools.",
-    "tags": ["Information Systems", "Web Development", "Database", "Software Engineering"]
-  },
-  "intern_dlh": {
-    "role": "Intern — Administrative Intern",
-    "desc": "Responsible for administrative data management and office operations at the Palangka Raya City Environmental Agency. Strengthened document management skills and understanding of government workflows.",
-    "tags": ["Administration", "Data Management", "Government Institution"]
-  },
-  "smk": {
-    "role": "Vocational — Multimedia Major",
-    "desc": "Studied graphic design fundamentals, visual content production, and digital media processing — a foundation that sharpened visual sensibility across every digital product I build.",
-    "tags": ["Graphic Design", "Visual Production", "Digital Media"]
-  },
-  "intern_bigprint": {
-    "role": "Intern — Digital Printing",
-    "desc": "Involved in print design production — from receiving client briefs and adjusting design files to quality control. Developed precision and professionalism under tight deadlines.",
-    "tags": ["Print Design", "Client Brief", "Quality Control"]
-  }
-},
-"contact": {
-  "label": "05 — Contact",
-  "heading": "Interested in",
-  "heading_accent": "connecting?",
-  "description": "I am open to job opportunities, internships, and collaborative projects. Feel free to reach out via email or social media below.",
-  "location_label": "Location",
-  "field_name": "Name",
-  "field_email": "Email",
-  "field_message": "Message",
-  "placeholder_name": "Your Name",
-  "placeholder_email": "email@example.com",
-  "placeholder_message": "Tell me about your project...",
-  "btn_send": "Send Message",
-  "btn_sent": "Email App Opened",
-  "sent_note": "Please complete the submission in your email app.",
-  "email_subject": "Message from",
-  "email_body_name": "Name:",
-  "email_body_email": "Email:",
-  "email_body_message": "Message:",
-  "footer_copy": "© 2026 Muhammad Bagir. All rights reserved.",
-  "footer_made": "Designed & built with care."
-}
 }

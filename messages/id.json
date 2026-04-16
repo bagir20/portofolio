@@ -1,5 +1,5 @@
 {
-"hero": {
+  "hero": {
     "available": "Tersedia untuk Kerja",
     "subtitle": "Fresh Graduate Sistem Informasi yang adaptif — siap berkontribusi di pengembangan web, pengelolaan data, maupun administrasi sistem.",
     "cta_projects": "Lihat Proyek",
@@ -14,112 +14,147 @@
     "experience": "Pengalaman",
     "contact": "Kontak"
   },
-
   "about": {
-  "label": "01 — Tentang",
-  "greeting": "Halo, saya",
-  "p1": "Fresh graduate Sarjana Sistem Informasi dari STMIK Palangkaraya (2021–2025) dengan IPK 3.49. Saya memiliki ketertarikan di bidang pengembangan web, pengelolaan data, desain grafis, dan administrasi berbasis teknologi.",
-  "p2": "Selama studi, saya terbiasa membangun sistem dari sisi backend maupun frontend, serta memahami kebutuhan operasional di lingkungan kerja melalui pengalaman magang di instansi pemerintah.",
-  "p3": "Saya adalah pribadi yang adaptif dan teliti — nyaman bekerja baik dalam lingkungan yang dinamis maupun terstruktur, dan selalu siap belajar hal baru.",
-  "edu_label": "Pendidikan",
-  "edu_degree": "S1 Sistem Informasi",
-  "edu_detail": "STMIK Palangkaraya · 2021 – 2025 · IPK 3.49"
-},
-"skills": {
-  "label": "02 — Keahlian",
-  "heading": "Teknologi &",
-  "heading_accent": "alat yang saya gunakan.",
-  "description": "Rangkaian keahlian teknis dan administratif yang dibangun melalui studi formal dan pengalaman kerja langsung.",
-  "cat_admin": "Administrasi & Data",
-  "skill_data_analysis": "Analisis Data",
-  "skill_digital_archive": "Kearsipan Digital (SRIKANDI)",
-  "skill_doc_management": "Manajemen Dokumen"
-},
-"projects": {
-  "label": "03 — Proyek",
-  "heading": "Proyek yang telah",
-  "heading_accent": "saya kerjakan.",
-  "description": "Beberapa aplikasi web yang saya bangun untuk kebutuhan bisnis dan sistem informasi.",
-  "filter_all": "Semua",
-  "cat_si": "Sistem Informasi",
-  "cat_product": "Produk",
-  "aria_live": "Buka live",
-  "aria_gallery": "Lihat galeri",
-  "aria_close": "Tutup",
-  "auth_title": "Demo Accounts",
-  "auth_desc": "Use the following credentials to try the app:",
-  "auth_role": "Role",
-  "auth_username": "Username",
-  "auth_password": "Password",
-  "auth_btn": "Open App",
+    "label": "01 — Tentang",
+    "greeting": "Halo, saya",
+    "p1": "Fresh graduate Sarjana Sistem Informasi dari STMIK Palangkaraya (2021–2025) dengan IPK 3.49. Saya memiliki ketertarikan di bidang pengembangan web, pengelolaan data, desain grafis, dan administrasi berbasis teknologi.",
+    "p2": "Selama studi, saya terbiasa membangun sistem dari sisi backend maupun frontend, serta memahami kebutuhan operasional di lingkungan kerja melalui pengalaman magang di instansi pemerintah.",
+    "p3": "Saya adalah pribadi yang adaptif dan teliti — nyaman bekerja baik dalam lingkungan yang dinamis maupun terstruktur, dan selalu siap belajar hal baru.",
+    "edu_label": "Pendidikan",
+    "edu_degree": "S1 Sistem Informasi",
+    "edu_detail": "STMIK Palangkaraya · 2021 – 2025 · IPK 3.49"
+  },
+  "skills": {
+    "label": "02 — Keahlian",
+    "heading": "Teknologi &",
+    "heading_accent": "alat yang saya gunakan.",
+    "description": "Rangkaian keahlian teknis dan administratif yang dibangun melalui studi formal dan pengalaman kerja langsung.",
+    "cat_admin": "Administrasi & Data",
+    "skill_data_analysis": "Analisis Data",
+    "skill_digital_archive": "Kearsipan Digital (SRIKANDI)",
+    "skill_doc_management": "Manajemen Dokumen"
+  },
   
-  "pos_caffe": {
-    "desc": "Sistem Point of Sale untuk operasional kedai kopi — mencakup manajemen inventaris, tampilan pesanan dapur secara real-time, dan pelaporan transaksi."
+  "projects": {
+    "label": "03 — Proyek",
+    "heading": "Proyek yang telah",
+    "heading_accent": "saya kerjakan.",
+    "description": "Beberapa aplikasi web, proyek analisis data, dan sistem informasi yang telah saya bangun.",
+    "filter_all": "Semua",
+    "cat_web_app": "App Web",
+    "cat_data_analyst": "Analisis Data",
+    "aria_live": "Buka live",
+    "aria_gallery": "Lihat galeri",
+    "aria_close": "Tutup",
+    "auth_title": "Demo Accounts",
+    "auth_desc": "Gunakan kredensial berikut untuk mencoba aplikasi:",
+    "auth_role": "Role",
+    "auth_username": "Username",
+    "auth_password": "Password",
+    "auth_btn": "Buka App",
+    "pos_caffe": {
+      "desc": "Sistem Point of Sale untuk operasional kedai kopi — mencakup manajemen inventaris, tampilan pesanan dapur secara real-time, dan pelaporan transaksi."
+    },
+    "stockflow": {
+      "desc": "Aplikasi manajemen inventaris dengan pemindaian QR Code untuk pemantauan stok masuk dan keluar secara real-time."
+    },
+    "bank_sampah": {
+      "desc": "Platform digitalisasi Bank Sampah — mengelola data nasabah, pencatatan transaksi setoran, dan pelaporan otomatis."
+    },
+    "wanpicture": {
+      "desc": "Platform booking studio fotografi tanpa registrasi. Klien mengisi form dan admin menerima notifikasi WhatsApp secara real-time untuk konfirmasi."
+    },
+    "laporan_lapangan": {
+      "desc": "Sistem pelaporan kegiatan lapangan dengan input data geospasial, validasi bertingkat, dan rekapitulasi laporan otomatis."
+    },
+    "retail_analysis": {
+      "desc": "Proyek analisis penjualan retail end-to-end — mulai dari eksplorasi data dan segmentasi pelanggan RFM hingga peramalan permintaan dengan Holt-Winters, disertai dashboard Power BI untuk presentasi stakeholder.",
+      "slide1_step": "Langkah 1 dari 6 — Eksplorasi Data",
+      "slide1_title": "Penjualan per Kategori",
+      "slide1_desc": "Dataset mentah dimuat dengan pandas lalu dikelompokkan berdasarkan kategori produk. Technology memimpin dengan total penjualan $836K, namun Furniture hanya menghasilkan margin keuntungan 2.49% — temuan kritis yang ditemukan saat eksplorasi awal.",
+      "slide2_step": "Langkah 1 dari 6 — Eksplorasi Data",
+      "slide2_title": "Tren Penjualan Tahunan",
+      "slide2_desc": "Penjualan bulanan diagregasi dari tahun 2014–2017 menggunakan groupby dan datetime parsing. Tren menunjukkan pertumbuhan konsisten setiap tahun dengan puncak musiman di Q4, mengindikasikan pola permintaan yang dapat diandalkan.",
+      "slide3_step": "Langkah 2 dari 6 — Segmentasi Pelanggan",
+      "slide3_title": "Segmentasi RFM",
+      "slide3_desc": "Setiap pelanggan dinilai 1–4 pada aspek Recency, Frequency, dan Monetary value. Skor RFM gabungan mengklasifikasikan pelanggan ke dalam 8 segmen — 28% termasuk Loyal, sementara 6.9% termasuk Lost yang memerlukan strategi re-engagement.",
+      "slide4_step": "Langkah 3 dari 6 — Peramalan Permintaan",
+      "slide4_title": "Forecast Holt-Winters",
+      "slide4_desc": "Data penjualan bulanan di-resample dan dimasukkan ke model Holt-Winters Exponential Smoothing (statsmodels). Model menangkap tren dan musiman untuk memprediksi 6 bulan ke depan, dengan puncak $74,874 pada Maret 2018 dan interval kepercayaan 95%.",
+      "slide5_step": "Langkah 4 dari 6 — Analisis SQL",
+      "slide5_title": "Produk Teratas via SQL",
+      "slide5_desc": "Dataset dimuat ke database SQLite in-memory. Query SQL mengekstrak 10 produk teratas berdasarkan pendapatan — hasil dikembalikan ke pandas dan divisualisasikan untuk mengidentifikasi produk bernilai tinggi dalam prioritas inventaris.",
+      "slide6_step": "Langkah 5 dari 6 — Dashboard",
+      "slide6_title": "Dashboard Power BI",
+      "slide6_desc": "Seluruh temuan analisis dikonsolidasikan ke dalam dashboard Power BI interaktif — ringkasan KPI, breakdown kategori, tren bulanan, segmen RFM, dan distribusi profit per region untuk presentasi stakeholder non-teknis."
+    },
+    "food_estate": {
+      "desc": "Analisis data pertanian end-to-end menggunakan pipeline SQL, Python, dan Power BI. Sistem ini memproses data panen, produktivitas lahan, dan distribusi untuk memberikan insight efisiensi pasar dan keuntungan petani.",
+      "slide1_step": "Langkah 1 dari 5 — Dashboard",
+      "slide1_title": "Dashboard Eksekutif",
+      "slide1_desc": "Konsolidasi seluruh data ke dalam satu tampilan interaktif. Memiliki fitur filter wilayah (Kecamatan/Desa) untuk memonitor performa distribusi, total pendapatan per komoditas, dan tren pasar secara spesifik per area.",
+      "slide2_step": "Langkah 2 dari 5 — Efisiensi Lahan",
+      "slide2_title": "Analisis Produktivitas",
+      "slide2_desc": "Visualisasi Scatter Plot untuk mengukur efisiensi petani. Memetakan 'Luas Lahan' vs 'Produktivitas (Kg/Ha)' untuk mengidentifikasi outlier: petani dengan lahan luas namun tidak produktif, atau petani kecil dengan hasil maksimal.",
+      "slide3_step": "Langkah 3 dari 5 — Tren Pasar",
+      "slide3_title": "Analisis Musiman (Seasonality)",
+      "slide3_desc": "Line chart tren pendapatan bulanan untuk melihat pola musim panen dan distribusi. Membantu memprediksi 'High Season' dan 'Low Season' dalam tahun operasional untuk strategi stok.",
+      "slide4_step": "Langkah 4 dari 5 — Ekstraksi Data",
+      "slide4_title": "SQL Join Multi-Tabel",
+      "slide4_desc": "Proses extraction data dari 5 tabel relasional (Komoditas, Desa, Petani, Panen, Distribusi) menggunakan kompleks JOIN. Memastikan integritas data dari sumber database hingga layer analisis.",
+      "slide5_step": "Langkah 5 dari 5 — Transformasi",
+      "slide5_title": "Processing dengan Pandas",
+      "slide5_desc": "Transformasi dan pembersihan data menggunakan Pandas. Menambahkan kolom insight seperti 'Bulan Panen', 'Produktivitas per Ha', dan 'Selisih Distribusi' untuk menunjang analisis di Power BI."
+    }
   },
 
-
-  "stockflow": {
-    "desc": "Aplikasi manajemen inventaris dengan pemindaian QR Code untuk pemantauan stok masuk dan keluar secara real-time."
+  "experience": {
+    "label": "04 — Pengalaman",
+    "heading": "Perjalanan",
+    "heading_accent": "pendidikan & profesional saya.",
+    "description": "Dari SMK hingga perguruan tinggi, pengalaman yang membentuk kemampuan saya hari ini.",
+    "at": "di",
+    "edu_degree": {
+      "role": "Sarjana Komputer — Sistem Informasi",
+      "desc": "Strata satu dengan fokus pengembangan sistem informasi. Membangun berbagai proyek web dari konsep hingga deployment — sistem informasi instansi, platform e-commerce, hingga manajemen inventaris.",
+      "tags": ["Sistem Informasi", "Web Development", "Database", "Software Engineering"]
+    },
+    "intern_dlh": {
+      "role": "Magang — Administrative Intern",
+      "desc": "Bertanggung jawab atas pengelolaan data administratif dan operasional kantor di Dinas Lingkungan Hidup Kota Palangka Raya. Melatih kemampuan pengelolaan dokumen dan pemahaman alur kerja instansi pemerintah.",
+      "tags": ["Administrasi", "Pengelolaan Data", "Instansi Pemerintah"]
+    },
+    "smk": {
+      "role": "Multimedia — Jurusan Multimedia",
+      "desc": "Mempelajari dasar desain grafis, produksi konten visual, dan pengolahan media digital — fondasi yang membentuk kepekaan visual dalam setiap produk digital yang saya bangun.",
+      "tags": ["Desain Grafis", "Produksi Visual", "Media Digital"]
+    },
+    "intern_bigprint": {
+      "role": "Magang — Digital Printing",
+      "desc": "Terlibat dalam produksi desain cetak — dari penerimaan brief klien, penyesuaian file, hingga quality control. Melatih ketelitian dan profesionalisme dalam tenggat waktu ketat.",
+      "tags": ["Desain Cetak", "Brief Klien", "Quality Control"]
+    }
   },
-  "bank_sampah": {
-    "desc": "Platform digitalisasi Bank Sampah — mengelola data nasabah, pencatatan transaksi setoran, dan pelaporan otomatis."
-  },
-  "wanpicture": {
-    "desc": "Platform booking studio fotografi tanpa registrasi. Klien mengisi form dan admin menerima notifikasi WhatsApp secara real-time untuk konfirmasi."
-  },
-  "laporan_lapangan": {
-    "desc": "Sistem pelaporan kegiatan lapangan dengan input data geospasial, validasi bertingkat, dan rekapitulasi laporan otomatis."
+  "contact": {
+    "label": "05 — Kontak",
+    "heading": "Tertarik untuk",
+    "heading_accent": "terhubung?",
+    "description": "Saya terbuka untuk peluang kerja, magang, maupun proyek kolaborasi. Jangan ragu menghubungi saya melalui email atau media sosial di bawah.",
+    "location_label": "Lokasi",
+    "field_name": "Nama",
+    "field_email": "Email",
+    "field_message": "Pesan",
+    "placeholder_name": "Nama Anda",
+    "placeholder_email": "email@anda.com",
+    "placeholder_message": "Ceritakan tentang proyek Anda...",
+    "btn_send": "Kirim Pesan",
+    "btn_sent": "App Email Terbuka",
+    "sent_note": "Silakan selesaikan pengiriman di aplikasi email Anda.",
+    "email_subject": "Pesan dari",
+    "email_body_name": "Nama:",
+    "email_body_email": "Email:",
+    "email_body_message": "Pesan:",
+    "footer_copy": "© 2026 Muhammad Bagir. Hak cipta dilindungi.",
+    "footer_made": "Dirancang & dibangun dengan hati."
   }
-},
-"experience": {
-  "label": "04 — Pengalaman",
-  "heading": "Perjalanan",
-  "heading_accent": "pendidikan & profesional saya.",
-  "description": "Dari SMK hingga perguruan tinggi, pengalaman yang membentuk kemampuan saya hari ini.",
-  "at": "di",
-  "edu_degree": {
-    "role": "Sarjana Komputer — Sistem Informasi",
-    "desc": "Strata satu dengan fokus pengembangan sistem informasi. Membangun berbagai proyek web dari konsep hingga deployment — sistem informasi instansi, platform e-commerce, hingga manajemen inventaris.",
-    "tags": ["Sistem Informasi", "Web Development", "Database", "Software Engineering"]
-  },
-  "intern_dlh": {
-    "role": "Magang — Administrative Intern",
-    "desc": "Bertanggung jawab atas pengelolaan data administratif dan operasional kantor di Dinas Lingkungan Hidup Kota Palangka Raya. Melatih kemampuan pengelolaan dokumen dan pemahaman alur kerja instansi pemerintah.",
-    "tags": ["Administrasi", "Pengelolaan Data", "Instansi Pemerintah"]
-  },
-  "smk": {
-    "role": "Multimedia — Jurusan Multimedia",
-    "desc": "Mempelajari dasar desain grafis, produksi konten visual, dan pengolahan media digital — fondasi yang membentuk kepekaan visual dalam setiap produk digital yang saya bangun.",
-    "tags": ["Desain Grafis", "Produksi Visual", "Media Digital"]
-  },
-  "intern_bigprint": {
-    "role": "Magang — Digital Printing",
-    "desc": "Terlibat dalam produksi desain cetak — dari penerimaan brief klien, penyesuaian file, hingga quality control. Melatih ketelitian dan profesionalisme dalam tenggat waktu ketat.",
-    "tags": ["Desain Cetak", "Brief Klien", "Quality Control"]
-  }
-},
-"contact": {
-  "label": "05 — Kontak",
-  "heading": "Tertarik untuk",
-  "heading_accent": "terhubung?",
-  "description": "Saya terbuka untuk peluang kerja, magang, maupun proyek kolaborasi. Jangan ragu menghubungi saya melalui email atau media sosial di bawah.",
-  "location_label": "Lokasi",
-  "field_name": "Nama",
-  "field_email": "Email",
-  "field_message": "Pesan",
-  "placeholder_name": "Nama Anda",
-  "placeholder_email": "email@anda.com",
-  "placeholder_message": "Ceritakan tentang proyek Anda...",
-  "btn_send": "Kirim Pesan",
-  "btn_sent": "App Email Terbuka",
-  "sent_note": "Silakan selesaikan pengiriman di aplikasi email Anda.",
-  "email_subject": "Pesan dari",
-  "email_body_name": "Nama:",
-  "email_body_email": "Email:",
-  "email_body_message": "Pesan:",
-  "footer_copy": "© 2026 Muhammad Bagir. Hak cipta dilindungi.",
-  "footer_made": "Dirancang & dibangun dengan hati."
-}
-
-
 }
