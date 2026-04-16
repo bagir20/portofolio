@@ -113,7 +113,7 @@ export default function Projects() {
       year: "2025",
       image: "/images/projects/data-analysis/powerbi-dashboard.png",
       link: "#",
-      github: "https://github.com/bagir20/retail-sales-analysis",
+      github: "https://github.com/bagir20/data-analyst-portfolio/tree/main/01_superstore",
       gallery: [
         "/images/projects/data-analysis/eda-category-sales.png",
         "/images/projects/data-analysis/eda-yearly-trend.png",
@@ -163,7 +163,7 @@ export default function Projects() {
       year: "2025",
       image: "/images/projects/food-estate/food-estate-dashboard.jpg", // Ganti dengan path gambar aslimu
       link: "#",
-      github: "https://github.com/bagir20/food-estate-analysis", // Ganti link repo aslimu
+      github: "https://github.com/bagir20/data-analyst-portfolio/tree/main/02_food_estate", // Ganti link repo aslimu
       gallery: [
         "/images/projects/food-estate/food-estate-dashboard.jpg",
         "/images/projects/food-estate/scatter-plot.png",
