@@ -34,7 +34,6 @@
     "skill_digital_archive": "Kearsipan Digital (SRIKANDI)",
     "skill_doc_management": "Manajemen Dokumen"
   },
-  
   "projects": {
     "label": "03 — Proyek",
     "heading": "Proyek yang telah",
@@ -43,6 +42,7 @@
     "filter_all": "Semua",
     "cat_web_app": "App Web",
     "cat_data_analyst": "Analisis Data",
+    "cat_graphic_design": "Desain Grafis",
     "aria_live": "Buka live",
     "aria_gallery": "Lihat galeri",
     "aria_close": "Tutup",
@@ -107,7 +107,6 @@
       "slide5_desc": "Transformasi dan pembersihan data menggunakan Pandas. Menambahkan kolom insight seperti 'Bulan Panen', 'Produktivitas per Ha', dan 'Selisih Distribusi' untuk menunjang analisis di Power BI."
     }
   },
-
   "experience": {
     "label": "04 — Pengalaman",
     "heading": "Perjalanan",

@@ -221,8 +221,8 @@ export default function LanyardBadge() {
           width: 12,
           height: 12,
           borderRadius: "50%",
-          backgroundColor: "#111",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+          backgroundColor: "#202760", // Warna biru utama
+          boxShadow: "0 2px 8px rgba(59, 130, 246, 0.5), 0 0 12px rgba(59, 130, 246, 0.2)", // Shadow biru yang menyala
           position: "relative",
           zIndex: 10,
         }}

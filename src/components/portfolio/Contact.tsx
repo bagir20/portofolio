@@ -30,8 +30,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-white dark:bg-neutral-950" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    // Hapus padding bawah section secara manual di sini
+    <section id="contact" className="pt-24 md:pt-32 bg-white dark:bg-neutral-950 overflow-x-hidden" ref={ref}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -65,13 +66,8 @@ export default function Contact() {
                   <Mail size={16} className="text-neutral-400 dark:text-neutral-500" />
                 </div>
                 <div>
-                  <div className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide uppercase mb-0.5">
-                    Email
-                  </div>
-                  <a
-                    href="mailto:mdbagir20@gmail.com"
-                    className="text-sm text-neutral-900 dark:text-neutral-100 font-light hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors"
-                  >
+                  <div className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide uppercase mb-0.5">Email</div>
+                  <a href="mailto:mdbagir20@gmail.com" className="text-sm text-neutral-900 dark:text-neutral-100 font-light hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors">
                     mdbagir20@gmail.com
                   </a>
                 </div>
@@ -82,12 +78,8 @@ export default function Contact() {
                   <MapPin size={16} className="text-neutral-400 dark:text-neutral-500" />
                 </div>
                 <div>
-                  <div className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide uppercase mb-0.5">
-                    {t("location_label")}
-                  </div>
-                  <span className="text-sm text-neutral-900 dark:text-neutral-100 font-light">
-                    Indonesia
-                  </span>
+                  <div className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide uppercase mb-0.5">{t("location_label")}</div>
+                  <span className="text-sm text-neutral-900 dark:text-neutral-100 font-light">Indonesia</span>
                 </div>
               </div>
             </div>
@@ -120,60 +112,24 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label
-                  htmlFor="name"
-                  className="text-xs tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2"
-                >
-                  {t("field_name")}
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
+                <label htmlFor="name" className="text-xs tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2">{t("field_name")}</label>
+                <input type="text" name="name" id="name" required value={form.name} onChange={handleChange}
                   className="w-full bg-transparent border-b border-neutral-200 dark:border-neutral-700 focus:border-neutral-900 dark:focus:border-neutral-100 outline-none py-3 text-sm text-neutral-900 dark:text-neutral-100 font-light transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600"
-                  placeholder={t("placeholder_name")}
-                />
+                  placeholder={t("placeholder_name")} />
               </div>
 
               <div>
-                <label
-                  htmlFor="email"
-                  className="text-xs tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2"
-                >
-                  {t("field_email")}
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
+                <label htmlFor="email" className="text-xs tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2">{t("field_email")}</label>
+                <input type="email" name="email" id="email" required value={form.email} onChange={handleChange}
                   className="w-full bg-transparent border-b border-neutral-200 dark:border-neutral-700 focus:border-neutral-900 dark:focus:border-neutral-100 outline-none py-3 text-sm text-neutral-900 dark:text-neutral-100 font-light transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600"
-                  placeholder={t("placeholder_email")}
-                />
+                  placeholder={t("placeholder_email")} />
               </div>
 
               <div>
-                <label
-                  htmlFor="message"
-                  className="text-xs tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2"
-                >
-                  {t("field_message")}
-                </label>
-                <textarea
-                  name="message"
-                  id="message"
-                  required
-                  rows={5}
-                  value={form.message}
-                  onChange={handleChange}
+                <label htmlFor="message" className="text-xs tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2">{t("field_message")}</label>
+                <textarea name="message" id="message" required rows={5} value={form.message} onChange={handleChange}
                   className="w-full bg-transparent border-b border-neutral-200 dark:border-neutral-700 focus:border-neutral-900 dark:focus:border-neutral-100 outline-none py-3 text-sm text-neutral-900 dark:text-neutral-100 font-light transition-colors resize-none placeholder:text-neutral-300 dark:placeholder:text-neutral-600"
-                  placeholder={t("placeholder_message")}
-                />
+                  placeholder={t("placeholder_message")} />
               </div>
 
               <button
@@ -181,39 +137,56 @@ export default function Contact() {
                 className="group flex items-center gap-3 px-8 py-3 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 text-xs tracking-[0.15em] uppercase hover:bg-neutral-800 dark:hover:bg-neutral-300 transition-all duration-300"
               >
                 {status === "sent" ? (
-                  <>
-                    {t("btn_sent")}
-                    <CheckCircle size={14} className="text-green-400 dark:text-green-500" />
-                  </>
+                  <>{t("btn_sent")} <CheckCircle size={14} className="text-green-400 dark:text-green-500" /></>
                 ) : (
-                  <>
-                    {t("btn_send")}
-                    <Mail size={14} className="group-hover:translate-x-1 transition-transform" />
-                  </>
+                  <>{t("btn_send")} <Mail size={14} className="group-hover:translate-x-1 transition-transform" /></>
                 )}
               </button>
 
               {status === "sent" && (
-                <p className="text-xs text-neutral-400 dark:text-neutral-500 font-light">
-                  {t("sent_note")}
-                </p>
+                <p className="text-xs text-neutral-400 dark:text-neutral-500 font-light">{t("sent_note")}</p>
               )}
             </form>
           </motion.div>
         </div>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-24 pt-8 border-t border-neutral-100 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4"
-        >
-          <p className="text-xs text-neutral-400 dark:text-neutral-500 font-light">
+           {/* ── Area Bawah: Copyright lalu Teks Raksasa ── */}
+      {/* Wrapper ini WAJIB menggunakan left-1/2 supaya bisa keluar dari max-w-6xl di Mobile */}
+      <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden">
+        {/* Copyright */}
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-10 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-[10px] text-neutral-400 dark:text-neutral-500 font-light tracking-wide"
+          >
             {t("footer_copy")}
-          </p>
-          <p className="text-xs text-neutral-400 dark:text-neutral-500 font-light">
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-[10px] text-neutral-400 dark:text-neutral-500 font-light tracking-wide"
+          >
             {t("footer_made")}
-          </p>
+          </motion.p>
+        </div>
+
+        {/* Teks THANK YOU! yang Menghantam Lantai */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="w-full leading-[0.8] select-none"
+        >
+          <h2 
+            className="whitespace-nowrap font-black tracking-tighter text-neutral-900 dark:text-neutral-100
+                       text-[20vw] sm:text-[18vw] md:text-[18vw] lg:text-[15vw]"
+          >
+            THANK YOU!
+          </h2>
         </motion.div>
       </div>
     </section>

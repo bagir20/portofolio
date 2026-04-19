@@ -6,18 +6,16 @@ import { ArrowUpRight, Github, X, ChevronLeft, ChevronRight, Images, KeyRound } 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-// Tipe data untuk kredensial
 interface AuthAccount {
   role: string;
   username: string;
   password: string;
 }
 
-// Tipe data untuk caption gallery
 interface GalleryCaption {
   title: string;
   desc: string;
-  step: string; // label langkah, misal "Step 1 of 5 — Dashboard"
+  step: string;
 }
 
 export default function Projects() {
@@ -30,7 +28,7 @@ export default function Projects() {
       title: "POS Caffeshop",
       description: t("pos_caffe.desc"),
       tags: ["React", "Node.js", "Express", "PostgreSQL"],
-      category: t("cat_web_app"), // Update kategori
+      category: t("cat_web_app"),
       year: "2026",
       image: "/images/projects/pos-caffe/pos-caffe.png",
       link: "https://bagir-pos-caffe.vercel.app",
@@ -46,7 +44,7 @@ export default function Projects() {
       title: "Stockflow Inventory",
       description: t("stockflow.desc"),
       tags: ["React", "Node.js", "Express", "PostgreSQL"],
-      category: t("cat_web_app"), // Update kategori
+      category: t("cat_web_app"),
       year: "2026",
       image: "/images/projects/stockflow/sf-cover.png",
       link: "https://stockflow-inventory-system-psi.vercel.app/",
@@ -61,7 +59,7 @@ export default function Projects() {
       title: "Sistem Bank Sampah",
       description: t("bank_sampah.desc"),
       tags: ["CodeIgniter", "PHP", "MySQL", "Bootstrap"],
-      category: t("cat_web_app"), // Update kategori
+      category: t("cat_web_app"),
       year: "2025",
       image: "/images/projects/bank-sampah/project1.png",
       link: "#",
@@ -79,7 +77,7 @@ export default function Projects() {
       title: "Wanpicture",
       description: t("wanpicture.desc"),
       tags: ["Next.js", "TypeScript", "Tailwind", "WhatsApp API"],
-      category: t("cat_web_app"), // Update kategori
+      category: t("cat_web_app"),
       year: "2026",
       image: "/images/projects/wanpicture/wanpicture.png",
       link: "https://wanpicture.art",
@@ -91,7 +89,7 @@ export default function Projects() {
       title: "Laporan Lapangan",
       description: t("laporan_lapangan.desc"),
       tags: ["Laravel", "PHP", "MySQL", "Tailwind"],
-      category: t("cat_web_app"), // Update kategori
+      category: t("cat_web_app"),
       year: "2026",
       image: "/images/projects/laporan-lapangan/petugas1.png",
       link: "#",
@@ -109,7 +107,7 @@ export default function Projects() {
       title: "Retail Sales Analysis",
       description: t("retail_analysis.desc"),
       tags: ["Python", "Pandas", "Seaborn", "SQL", "Power BI", "Statsmodels"],
-      category: t("cat_data_analyst"), // Update kategori
+      category: t("cat_data_analyst"),
       year: "2025",
       image: "/images/projects/data-analysis/powerbi-dashboard.png",
       link: "#",
@@ -123,47 +121,23 @@ export default function Projects() {
         "/images/projects/data-analysis/powerbi-dashboard.png",
       ],
       galleryInfo: [
-        {
-          title: t("retail_analysis.slide1_title"),
-          desc: t("retail_analysis.slide1_desc"),
-          step: t("retail_analysis.slide1_step"),
-        },
-        {
-          title: t("retail_analysis.slide2_title"),
-          desc: t("retail_analysis.slide2_desc"),
-          step: t("retail_analysis.slide2_step"),
-        },
-        {
-          title: t("retail_analysis.slide3_title"),
-          desc: t("retail_analysis.slide3_desc"),
-          step: t("retail_analysis.slide3_step"),
-        },
-        {
-          title: t("retail_analysis.slide4_title"),
-          desc: t("retail_analysis.slide4_desc"),
-          step: t("retail_analysis.slide4_step"),
-        },
-        {
-          title: t("retail_analysis.slide5_title"),
-          desc: t("retail_analysis.slide5_desc"),
-          step: t("retail_analysis.slide5_step"),
-        },
-        {
-          title: t("retail_analysis.slide6_title"),
-          desc: t("retail_analysis.slide6_desc"),
-          step: t("retail_analysis.slide6_step"),
-        },
+        { title: t("retail_analysis.slide1_title"), desc: t("retail_analysis.slide1_desc"), step: t("retail_analysis.slide1_step") },
+        { title: t("retail_analysis.slide2_title"), desc: t("retail_analysis.slide2_desc"), step: t("retail_analysis.slide2_step") },
+        { title: t("retail_analysis.slide3_title"), desc: t("retail_analysis.slide3_desc"), step: t("retail_analysis.slide3_step") },
+        { title: t("retail_analysis.slide4_title"), desc: t("retail_analysis.slide4_desc"), step: t("retail_analysis.slide4_step") },
+        { title: t("retail_analysis.slide5_title"), desc: t("retail_analysis.slide5_desc"), step: t("retail_analysis.slide5_step") },
+        { title: t("retail_analysis.slide6_title"), desc: t("retail_analysis.slide6_desc"), step: t("retail_analysis.slide6_step") },
       ] as GalleryCaption[],
     },
     {
-      title: "Food Estate Analysis", 
+      title: "Food Estate Analysis",
       description: t("food_estate.desc"),
       tags: ["MySQL", "Python", "Pandas", "Power BI"],
       category: t("cat_data_analyst"),
       year: "2025",
-      image: "/images/projects/food-estate/food-estate-dashboard.jpg", // Ganti dengan path gambar aslimu
+      image: "/images/projects/food-estate/food-estate-dashboard.jpg",
       link: "#",
-      github: "https://github.com/bagir20/data-analyst-portfolio/tree/main/02_food_estate", // Ganti link repo aslimu
+      github: "https://github.com/bagir20/data-analyst-portfolio/tree/main/02_food_estate",
       gallery: [
         "/images/projects/food-estate/food-estate-dashboard.jpg",
         "/images/projects/food-estate/scatter-plot.png",
@@ -172,37 +146,43 @@ export default function Projects() {
         "/images/projects/food-estate/pandas-dataframe.png",
       ],
       galleryInfo: [
-        {
-          title: t("food_estate.slide1_title"),
-          desc: t("food_estate.slide1_desc"),
-          step: t("food_estate.slide1_step"),
-        },
-        {
-          title: t("food_estate.slide2_title"),
-          desc: t("food_estate.slide2_desc"),
-          step: t("food_estate.slide2_step"),
-        },
-        {
-          title: t("food_estate.slide3_title"),
-          desc: t("food_estate.slide3_desc"),
-          step: t("food_estate.slide3_step"),
-        },
-        {
-          title: t("food_estate.slide4_title"),
-          desc: t("food_estate.slide4_desc"),
-          step: t("food_estate.slide4_step"),
-        },
-        {
-          title: t("food_estate.slide5_title"),
-          desc: t("food_estate.slide5_desc"),
-          step: t("food_estate.slide5_step"),
-        },
+        { title: t("food_estate.slide1_title"), desc: t("food_estate.slide1_desc"), step: t("food_estate.slide1_step") },
+        { title: t("food_estate.slide2_title"), desc: t("food_estate.slide2_desc"), step: t("food_estate.slide2_step") },
+        { title: t("food_estate.slide3_title"), desc: t("food_estate.slide3_desc"), step: t("food_estate.slide3_step") },
+        { title: t("food_estate.slide4_title"), desc: t("food_estate.slide4_desc"), step: t("food_estate.slide4_step") },
+        { title: t("food_estate.slide5_title"), desc: t("food_estate.slide5_desc"), step: t("food_estate.slide5_step") },
       ] as GalleryCaption[],
+    },
+    {
+      title: "Violed Poster",
+      description: "",
+      tags: ["Photoshop"],
+      category: t("cat_graphic_design"),
+      year: "2025",
+      image: "/images/projects/photshop/violed/poster.png",
+      link: "#",
+      github: "",
+      gallery: ["/images/projects/photshop/violed/poster.png"],
+      galleryInfo: null,
+    },
+    {
+      title: "Idul Adha",
+      description: "",
+      tags: ["Photoshop"],
+      category: t("cat_graphic_design"),
+      year: "2025",
+      image: "/images/projects/photshop/idul-adha/poster.png",
+      link: "#",
+      github: "",
+      gallery: [
+        "/images/projects/photshop/idul-adha/poster.png",
+        "/images/projects/photshop/idul-adha/rawadha.png",
+      ],
+      galleryInfo: null,
     },
   ];
 
-  // Update Kategori Filter
-  const categories = [t("filter_all"), t("cat_web_app"), t("cat_data_analyst")];
+  const categories = [t("filter_all"), t("cat_web_app"), t("cat_data_analyst"), t("cat_graphic_design")];
 
   const [activeCategory, setActiveCategory] = useState(t("filter_all"));
   const [selectedGallery, setSelectedGallery] = useState<{
@@ -241,11 +221,7 @@ export default function Projects() {
 
   const handleLiveClick = (project: typeof projects[0]) => {
     if (project.auth) {
-      setAuthModal({
-        title: project.title,
-        link: project.link,
-        accounts: project.auth,
-      });
+      setAuthModal({ title: project.title, link: project.link, accounts: project.auth });
     } else {
       window.open(project.link, "_blank", "noopener,noreferrer");
     }
@@ -258,10 +234,7 @@ export default function Projects() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeGallery();
-        setAuthModal(null);
-      }
+      if (e.key === "Escape") { closeGallery(); setAuthModal(null); }
       if (e.key === "ArrowRight") nextImage();
       if (e.key === "ArrowLeft") prevImage();
     };
@@ -302,7 +275,7 @@ export default function Projects() {
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -320,105 +293,119 @@ export default function Projects() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, i) => (
-            <motion.article
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-              className="group relative border border-neutral-100 hover:border-neutral-300 dark:border-neutral-900 dark:hover:border-neutral-800 transition-colors duration-500 bg-white dark:bg-neutral-950"
-            >
-              <div
-                className={`aspect-[1915/928] bg-neutral-50 dark:bg-neutral-800 overflow-hidden relative ${project.gallery ? "cursor-zoom-in" : ""}`}
-                onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
+          {filteredProjects.map((project, i) => {
+            const isGraphicDesign = project.category === t("cat_graphic_design");
+
+            return (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
+                className="group relative border border-neutral-100 hover:border-neutral-300 dark:border-neutral-900 dark:hover:border-neutral-800 transition-colors duration-500 bg-white dark:bg-neutral-950"
               >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                {project.gallery && (
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <div className="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <Images size={24} className="text-neutral-900 dark:text-neutral-100" />
-                    </div>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-neutral-900/0 group-hover:bg-neutral-900/5 dark:bg-white/0 dark:group-hover:bg-white/5 transition-colors duration-500 pointer-events-none" />
-              </div>
-
-              <div className="p-6 lg:p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide">
-                    {project.category} — {project.year}
-                  </span>
-                  <div className="flex gap-3 items-center">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                        aria-label="GitHub"
-                      >
-                        <Github size={16} />
-                      </a>
-                    )}
-
-                    {project.link && project.link !== "#" ? (
-                      <button
-                        onClick={() => handleLiveClick(project)}
-                        className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                        aria-label={t("aria_live")}
-                      >
-                        <ArrowUpRight size={16} />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
-                        className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                        aria-label={t("aria_gallery")}
-                      >
-                        <Images size={16} />
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 mb-3">
-                  <h3 className="text-xl font-light text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-                    {project.title}
-                  </h3>
-                  {project.auth && (
-                    <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-full">
-                      <KeyRound size={10} className="text-emerald-600 dark:text-emerald-400" />
-                      <span className="text-[9px] font-medium text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Demo</span>
+                <div
+                  className={`bg-neutral-50 dark:bg-neutral-800 overflow-hidden relative ${
+                    project.gallery ? "cursor-zoom-in" : ""
+                  } ${
+                    isGraphicDesign
+                      ? "aspect-[3/4]"
+                      : "aspect-[1915/928]"
+                  }`}
+                  onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className={`transition-transform duration-700 group-hover:scale-[1.02] ${
+                      isGraphicDesign ? "object-contain" : "object-cover"
+                    }`}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  {project.gallery && (
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <div className="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <Images size={24} className="text-neutral-900 dark:text-neutral-100" />
+                      </div>
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-neutral-900/0 group-hover:bg-neutral-900/5 dark:bg-white/0 dark:group-hover:bg-white/5 transition-colors duration-500 pointer-events-none" />
                 </div>
 
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 font-light leading-relaxed mb-5">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-[10px] tracking-[0.1em] uppercase bg-neutral-50 text-neutral-500 border border-neutral-100 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700"
-                    >
-                      {tag}
+                <div className="p-6 lg:p-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide">
+                      {project.category} — {project.year}
                     </span>
-                  ))}
+                    <div className="flex gap-3 items-center">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                          aria-label="GitHub"
+                        >
+                          <Github size={16} />
+                        </a>
+                      )}
+
+                      {project.link && project.link !== "#" ? (
+                        <button
+                          onClick={() => handleLiveClick(project)}
+                          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                          aria-label={t("aria_live")}
+                        >
+                          <ArrowUpRight size={16} />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
+                          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                          aria-label={t("aria_gallery")}
+                        >
+                          <Images size={16} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 mb-3">
+                    <h3 className="text-xl font-light text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    {project.auth && (
+                      <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-full">
+                        <KeyRound size={10} className="text-emerald-600 dark:text-emerald-400" />
+                        <span className="text-[9px] font-medium text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Demo</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {project.description && (
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400 font-light leading-relaxed mb-5">
+                      {project.description}
+                    </p>
+                  )}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-[10px] tracking-[0.1em] uppercase bg-neutral-50 text-neutral-500 border border-neutral-100 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
       </div>
 
-      {/* ========== 1. Gallery Modal ========== */}
+      {/* ========== Gallery Modal ========== */}
       <AnimatePresence>
         {selectedGallery && (
           <motion.div
@@ -513,7 +500,7 @@ export default function Projects() {
         )}
       </AnimatePresence>
 
-      {/* ========== 2. Auth Modal ========== */}
+      {/* ========== Auth Modal ========== */}
       <AnimatePresence>
         {authModal && (
           <motion.div
