@@ -45,11 +45,28 @@ export default function Cursor() {
     if (!document.getElementById(styleId)) {
       const style = document.createElement("style");
       style.id = styleId;
-      style.innerHTML = `
-        *, *::before, *::after {
-          cursor: none !important;
-        }
-      `;
+      // Ganti bagian innerHTML style dengan ini:
+style.innerHTML = `
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+
+  /* Pengecualian untuk Next.js dev overlay & portal */
+  nextjs-portal,
+  nextjs-portal *,
+  #__next-build-watcher,
+  #__next-build-watcher *,
+  [data-nextjs-dialog],
+  [data-nextjs-dialog] *,
+  [data-nextjs-dialog-overlay],
+  [data-nextjs-toast],
+  [data-nextjs-toast] *,
+  .__next-error-overlay-disabled,
+  #nextjs__container_errors_label,
+  #nextjs__container_errors_label * {
+    cursor: auto !important;
+  }
+`;
       document.head.appendChild(style);
     }
 

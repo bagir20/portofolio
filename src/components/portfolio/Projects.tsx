@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { ArrowUpRight, Github, X, ChevronLeft, ChevronRight, Images, KeyRound } from "lucide-react";
+import { useRef, useState, useEffect, useMemo, useCallback } from "react";
+import { ArrowUpRight, Github, X, ChevronLeft, ChevronRight, Images, KeyRound, Globe } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
@@ -24,6 +24,19 @@ export default function Projects() {
   const t = useTranslations("projects");
 
   const projects = [
+    {
+      title: "Wanpicture",
+      description: t("wanpicture.desc"),
+      tags: ["Next.js", "TypeScript", "Tailwind", "WhatsApp API"],
+      category: t("cat_web_app"),
+      year: "2026",
+      image: "/images/projects/wanpicture/wanpicture.png",
+      link: "https://wanpicture.art",
+      github: "https://github.com/bagir20/wanpicture",
+      gallery: null,
+      galleryInfo: null,
+      isPublished: true,
+    },
     {
       title: "POS Caffeshop",
       description: t("pos_caffe.desc"),
@@ -71,18 +84,6 @@ export default function Projects() {
         "/images/projects/bank-sampah/project1ss4.png",
         "/images/projects/bank-sampah/project1ss5.png",
       ],
-      galleryInfo: null,
-    },
-    {
-      title: "Wanpicture",
-      description: t("wanpicture.desc"),
-      tags: ["Next.js", "TypeScript", "Tailwind", "WhatsApp API"],
-      category: t("cat_web_app"),
-      year: "2026",
-      image: "/images/projects/wanpicture/wanpicture.png",
-      link: "https://wanpicture.art",
-      github: "https://github.com/bagir20/wanpicture",
-      gallery: null,
       galleryInfo: null,
     },
     {
@@ -180,30 +181,95 @@ export default function Projects() {
       ],
       galleryInfo: null,
     },
+    {
+  title: "Produktif 2AM",
+  description: "",
+  tags: ["Canva", "Social Media", "Health & Lifestyle"],
+  category: t("cat_graphic_design"),
+  year: "2025",
+  image: "/images/projects/canva/produktif2AM/cover.png",
+  link: "#",
+  github: "",
+  gallery: [
+    "/images/projects/canva/produktif2AM/cover.png",
+    "/images/projects/canva/produktif2AM/1.png",
+    "/images/projects/canva/produktif2AM/2.png",
+    "/images/projects/canva/produktif2AM/3.png",
+    "/images/projects/canva/produktif2AM/4.png",
+  ],
+  galleryInfo: null,
+},
   ];
 
-  const categories = [t("filter_all"), t("cat_web_app"), t("cat_data_analyst"), t("cat_graphic_design")];
+  const categories = useMemo(
+    () => [t("cat_web_app"), t("cat_data_analyst"), t("cat_graphic_design")],
+    [t]
+  );
 
-  const [activeCategory, setActiveCategory] = useState(t("filter_all"));
+  const categoryGroups = useMemo(
+    () =>
+      categories.map((cat) => ({
+        key: cat,
+        projects: projects.filter((p) => p.category === cat),
+      })),
+    [categories, projects]
+  );
+
+  const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [selectedGallery, setSelectedGallery] = useState<{
     images: string[];
     captions: GalleryCaption[] | null;
+    isPoster?: boolean;
   } | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   const [authModal, setAuthModal] = useState<{
     title: string;
     link: string;
     accounts: AuthAccount[];
   } | null>(null);
 
-  const filteredProjects =
-    activeCategory === t("filter_all")
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const scrollRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const openGallery = (galleryImages: string[], galleryCaptions: GalleryCaption[] | null = null) => {
-    setSelectedGallery({ images: galleryImages, captions: galleryCaptions });
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cat = entry.target.getAttribute("data-category");
+            if (cat) setActiveCategory(cat);
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+
+    categories.forEach((cat) => {
+      const el = sectionRefs.current[cat];
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [categories]);
+
+  const scrollToSection = useCallback((key: string) => {
+    setActiveCategory(key);
+    const el = sectionRefs.current[key];
+    if (el) {
+      const offset = 120;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }, []);
+
+  const scrollCategory = useCallback((key: string, direction: "left" | "right") => {
+    const el = scrollRefs.current[key];
+    if (!el) return;
+    el.scrollBy({ left: direction === "left" ? -400 : 400, behavior: "smooth" });
+  }, []);
+
+  const openGallery = (galleryImages: string[], galleryCaptions: GalleryCaption[] | null = null, isPoster = false) => {
+    setSelectedGallery({ images: galleryImages, captions: galleryCaptions, isPoster });
     setCurrentImageIndex(0);
   };
 
@@ -219,7 +285,7 @@ export default function Projects() {
     setCurrentImageIndex((prev) => (prev - 1 + selectedGallery.images.length) % selectedGallery.images.length);
   };
 
-  const handleLiveClick = (project: typeof projects[0]) => {
+  const handleLiveClick = (project: (typeof projects)[0]) => {
     if (project.auth) {
       setAuthModal({ title: project.title, link: project.link, accounts: project.auth });
     } else {
@@ -228,13 +294,18 @@ export default function Projects() {
   };
 
   useEffect(() => {
-    document.body.style.overflow = (selectedGallery || authModal) ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    document.body.style.overflow = selectedGallery || authModal ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [selectedGallery, authModal]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { closeGallery(); setAuthModal(null); }
+      if (e.key === "Escape") {
+        closeGallery();
+        setAuthModal(null);
+      }
       if (e.key === "ArrowRight") nextImage();
       if (e.key === "ArrowLeft") prevImage();
     };
@@ -245,13 +316,19 @@ export default function Projects() {
   const currentCaption = selectedGallery?.captions?.[currentImageIndex] ?? null;
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-white dark:bg-neutral-950 relative" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <section id="projects" className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-900 relative" ref={ref}>
+      <style jsx global>{`
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* ── Heading ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-8"
         >
           <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500">
             {t("label")}
@@ -259,31 +336,23 @@ export default function Projects() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8"
         >
-          <div>
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-neutral-900 dark:text-neutral-100 mb-4">
-              {t("heading")}
-              <br />
-              <span className="text-neutral-400 dark:text-neutral-600">{t("heading_accent")}</span>
-            </h2>
-            <p className="text-neutral-500 dark:text-neutral-400 font-light leading-relaxed max-w-md">
-              {t("description")}
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
+          <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter text-neutral-900 dark:text-neutral-100 leading-[0.85]">
+            {t("heading")}
+          </h2>
+          <div className="flex flex-wrap gap-3">
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-xs tracking-[0.1em] uppercase transition-all duration-300 ${
+                onClick={() => scrollToSection(cat)}
+                className={`px-6 py-3 text-xs tracking-[0.15em] uppercase transition-all duration-300 border ${
                   activeCategory === cat
-                    ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                    : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-200"
+                    ? "bg-neutral-900 text-white border-neutral-900 dark:bg-neutral-100 dark:border-neutral-100 dark:text-neutral-900"
+                    : "bg-transparent text-neutral-500 border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 hover:text-neutral-900 dark:hover:border-neutral-100"
                 }`}
               >
                 {cat}
@@ -292,114 +361,184 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, i) => {
-            const isGraphicDesign = project.category === t("cat_graphic_design");
+        {/* ── Horizontal Scroll per Kategori ── */}
+        <div className="space-y-20 md:space-y-28">
+          {categoryGroups.map((group, groupIdx) => {
+            const isGraphicDesign = group.key === t("cat_graphic_design");
 
             return (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
+              <motion.div
+                key={group.key}
+                ref={(el) => { sectionRefs.current[group.key] = el; }}
+                data-category={group.key}
+                initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                className="group relative border border-neutral-100 hover:border-neutral-300 dark:border-neutral-900 dark:hover:border-neutral-800 transition-colors duration-500 bg-white dark:bg-neutral-950"
+                transition={{ duration: 0.7, delay: groupIdx * 0.15 }}
               >
-                <div
-                  className={`bg-neutral-50 dark:bg-neutral-800 overflow-hidden relative ${
-                    project.gallery ? "cursor-zoom-in" : ""
-                  } ${
-                    isGraphicDesign
-                      ? "aspect-[3/4]"
-                      : "aspect-[1915/928]"
-                  }`}
-                  onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
-                >
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className={`transition-transform duration-700 group-hover:scale-[1.02] ${
-                      isGraphicDesign ? "object-contain" : "object-cover"
-                    }`}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  {project.gallery && (
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <div className="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <Images size={24} className="text-neutral-900 dark:text-neutral-100" />
-                      </div>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-neutral-900/0 group-hover:bg-neutral-900/5 dark:bg-white/0 dark:group-hover:bg-white/5 transition-colors duration-500 pointer-events-none" />
-                </div>
-
-                <div className="p-6 lg:p-8">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs text-neutral-400 dark:text-neutral-500 tracking-wide">
-                      {project.category} — {project.year}
+                {/* Kategori Label + Arrow */}
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-4">
+                    <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-neutral-900 dark:text-neutral-100">
+                      {group.key}
                     </span>
-                    <div className="flex gap-3 items-center">
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                          aria-label="GitHub"
-                        >
-                          <Github size={16} />
-                        </a>
-                      )}
-
-                      {project.link && project.link !== "#" ? (
-                        <button
-                          onClick={() => handleLiveClick(project)}
-                          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                          aria-label={t("aria_live")}
-                        >
-                          <ArrowUpRight size={16} />
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => project.gallery && openGallery(project.gallery, project.galleryInfo ?? null)}
-                          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                          aria-label={t("aria_gallery")}
-                        >
-                          <Images size={16} />
-                        </button>
-                      )}
-                    </div>
+                    <span className="w-8 h-px bg-neutral-300 dark:bg-neutral-700" />
+                    <span className="text-[10px] font-medium tracking-wider text-neutral-400 dark:text-neutral-500">
+                      {group.projects.length} {group.projects.length === 1 ? "project" : "projects"}
+                    </span>
                   </div>
 
-                  <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-xl font-light text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-                      {project.title}
-                    </h3>
-                    {project.auth && (
-                      <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/30 rounded-full">
-                        <KeyRound size={10} className="text-emerald-600 dark:text-emerald-400" />
-                        <span className="text-[9px] font-medium text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Demo</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {project.description && (
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400 font-light leading-relaxed mb-5">
-                      {project.description}
-                    </p>
-                  )}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 text-[10px] tracking-[0.1em] uppercase bg-neutral-50 text-neutral-500 border border-neutral-100 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-700"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => scrollCategory(group.key, "left")}
+                      className="p-2.5 border border-neutral-200 dark:border-neutral-700 rounded-full text-neutral-400 hover:text-neutral-900 hover:border-neutral-900 dark:hover:text-neutral-100 dark:hover:border-neutral-100 transition-all duration-300"
+                      aria-label="Scroll left"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <button
+                      onClick={() => scrollCategory(group.key, "right")}
+                      className="p-2.5 border border-neutral-200 dark:border-neutral-700 rounded-full text-neutral-400 hover:text-neutral-900 hover:border-neutral-900 dark:hover:text-neutral-100 dark:hover:border-neutral-100 transition-all duration-300"
+                      aria-label="Scroll right"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
                   </div>
                 </div>
-              </motion.article>
+
+                {/* Scroll Container */}
+                <div
+                  ref={(el) => { scrollRefs.current[group.key] = el; }}
+                  className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide pb-4"
+                >
+                  {group.projects.map((project) => (
+                    <div
+                      key={project.title}
+                      className={`flex-none snap-start group ${
+                        isGraphicDesign ? "w-[280px] md:w-[320px]" : "w-[380px] md:w-[480px]"
+                      }`}
+                    >
+                      {/* ── Card Image ── */}
+                      <div
+                        className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 cursor-pointer ${
+                          isGraphicDesign ? "aspect-[3/4]" : "aspect-[1915/928]"
+                        }`}
+                        onClick={() => {
+                          if (project.gallery) openGallery(project.gallery, project.galleryInfo ?? null, isGraphicDesign);
+                          else if (project.link && project.link !== "#") handleLiveClick(project);
+                        }}
+                      >
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className={`transition-transform duration-700 group-hover:scale-105 ${
+                            isGraphicDesign ? "object-contain" : "object-cover"
+                          }`}
+                          sizes={isGraphicDesign ? "(max-width: 768px) 280px, 320px" : "(max-width: 768px) 380px, 480px"}
+                        />
+
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+
+                        {project.gallery && (
+                          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                            <div className="bg-black/60 backdrop-blur-sm p-2 rounded-full border border-white/10">
+                              <Images size={14} className="text-white" />
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="absolute top-3 left-3 z-20">
+                          {project.isPublished ? (
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full">
+                              <Globe size={10} className="text-white" />
+                              <span className="text-[8px] font-bold tracking-wider uppercase text-white">Live</span>
+                            </div>
+                          ) : project.auth ? (
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/90 backdrop-blur-sm rounded-full">
+                              <KeyRound size={10} className="text-white" />
+                              <span className="text-[8px] font-bold tracking-wider uppercase text-white">Demo</span>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      {/* ── Card Info ── */}
+                      <div className="mt-4 px-0.5">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-[10px] font-medium tracking-[0.15em] text-neutral-400 dark:text-neutral-500">
+                            {project.year}
+                          </span>
+                        </div>
+
+                        <h3
+                          className={`font-extralight tracking-tighter text-neutral-900 dark:text-neutral-100 leading-[0.95] mb-2 ${
+                            isGraphicDesign ? "text-xl md:text-2xl" : "text-xl md:text-3xl"
+                          }`}
+                        >
+                          {project.title}
+                        </h3>
+
+                        {project.description && (
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed mb-3 line-clamp-2">
+                            {project.description}
+                          </p>
+                        )}
+
+                        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-[8px] font-bold tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-4 pt-3 border-t border-neutral-200 dark:border-neutral-800">
+                          {project.github && (
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300"
+                              aria-label="GitHub"
+                            >
+                              <Github size={15} />
+                            </a>
+                          )}
+                          {project.link && project.link !== "#" ? (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleLiveClick(project);
+                              }}
+                              className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300 flex items-center gap-1.5"
+                            >
+                              <ArrowUpRight size={15} />
+                              <span className="text-[9px] font-medium tracking-[0.15em] uppercase">Live</span>
+                            </button>
+                          ) : project.gallery ? (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openGallery(project.gallery!, project.galleryInfo ?? null, isGraphicDesign);
+                              }}
+                              className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300 flex items-center gap-1.5"
+                            >
+                              <Images size={15} />
+                              <span className="text-[9px] font-medium tracking-[0.15em] uppercase">View</span>
+                            </button>
+                          ) : null}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="flex-none w-4" />
+                </div>
+              </motion.div>
             );
           })}
         </div>
@@ -412,7 +551,7 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-neutral-950/90 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={closeGallery}
           >
             <motion.div
@@ -422,7 +561,9 @@ export default function Projects() {
               className={`relative w-full bg-transparent ${
                 currentCaption
                   ? "max-w-5xl h-[85vh] flex flex-col"
-                  : "max-w-5xl max-h-[90vh] aspect-video"
+                  : selectedGallery.isPoster
+                    ? "max-w-3xl h-[85vh] aspect-[3/4]"
+                    : "max-w-5xl max-h-[90vh] aspect-video"
               }`}
               onClick={(e) => e.stopPropagation()}
             >
@@ -434,9 +575,11 @@ export default function Projects() {
                 <X size={32} />
               </button>
 
-              <div className={`relative w-full bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 shadow-2xl ${
-                currentCaption ? "flex-1 min-h-0" : "h-full"
-              }`}>
+              <div
+                className={`relative w-full bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 shadow-2xl ${
+                  currentCaption ? "flex-1 min-h-0" : "h-full"
+                }`}
+              >
                 <Image
                   src={selectedGallery.images[currentImageIndex]}
                   alt={currentCaption?.title ?? `Screenshot ${currentImageIndex + 1}`}
@@ -473,7 +616,7 @@ export default function Projects() {
                 </motion.div>
               )}
 
-              {selectedGallery.images.length > 1 && (
+              {selectedGallery?.images.length > 1 && (
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); prevImage(); }}
