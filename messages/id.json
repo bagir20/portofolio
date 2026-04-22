@@ -1,11 +1,11 @@
 {
   "hero": {
-    "available": "Tersedia untuk Kerja",
-    "subtitle": "Fresh Graduate Sistem Informasi yang adaptif — siap berkontribusi di pengembangan web, pengelolaan data, maupun administrasi sistem.",
-    "cta_projects": "Lihat Proyek",
-    "cta_contact": "Hubungi Saya",
-    "cta_resume": "Unduh CV · ID"
-  },
+  "available": "Tersedia untuk Kerja",
+  "subtitle": "Fresh Graduate Sistem Informasi. Pengembangan web, pengelolaan data & administrasi sistem.",
+  "cta_projects": "Lihat Proyek",
+  "cta_contact": "Hubungi Saya",
+  "cta_resume": "Unduh CV · ID"
+},
   "nav": {
     "home": "Beranda",
     "about": "Tentang",

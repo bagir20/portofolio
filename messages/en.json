@@ -1,11 +1,11 @@
 {
   "hero": {
-    "available": "Available for Work",
-    "subtitle": "Adaptive Information Systems graduate — ready to contribute in web development, data management, and system administration.",
-    "cta_projects": "View Projects",
-    "cta_contact": "Contact Me",
-    "cta_resume": "Download CV · EN"
-  },
+  "available": "Available for Work",
+  "subtitle": "Information Systems graduate. Web development, data management & system administration.",
+  "cta_projects": "View Projects",
+  "cta_contact": "Contact Me",
+  "cta_resume": "Download CV · EN"
+},
   "nav": {
     "home": "Home",
     "about": "About",

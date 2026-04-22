@@ -341,7 +341,7 @@ export default function Projects() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8"
         >
-          <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter text-neutral-900 dark:text-neutral-100 leading-[0.85]">
+          <h2 className="text-6xl md:text-8xl font-light uppercase tracking-tighter text-neutral-900 dark:text-neutral-100 leading-[0.85]">
             {t("heading")}
           </h2>
           <div className="flex flex-wrap gap-3">
@@ -417,25 +417,34 @@ export default function Projects() {
                         isGraphicDesign ? "w-[280px] md:w-[320px]" : "w-[380px] md:w-[480px]"
                       }`}
                     >
-                      {/* ── Card Image ── */}
-                      <div
-                        className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 cursor-pointer ${
-                          isGraphicDesign ? "aspect-[3/4]" : "aspect-[1915/928]"
-                        }`}
-                        onClick={() => {
-                          if (project.gallery) openGallery(project.gallery, project.galleryInfo ?? null, isGraphicDesign);
-                          else if (project.link && project.link !== "#") handleLiveClick(project);
-                        }}
-                      >
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          className={`transition-transform duration-700 group-hover:scale-105 ${
-                            isGraphicDesign ? "object-contain" : "object-cover"
-                          }`}
-                          sizes={isGraphicDesign ? "(max-width: 768px) 280px, 320px" : "(max-width: 768px) 380px, 480px"}
-                        />
+{/* ── Card Image ── */}
+<div
+  className={`relative overflow-hidden bg-neutral-100 dark:bg-neutral-800 cursor-pointer ${
+    isGraphicDesign ? "" : "aspect-[1915/928]"
+  }`}
+  onClick={() => {
+    if (project.gallery) openGallery(project.gallery, project.galleryInfo ?? null, isGraphicDesign);
+    else if (project.link && project.link !== "#") handleLiveClick(project);
+  }}
+>
+  {isGraphicDesign ? (
+    <Image
+      src={project.image}
+      alt={project.title}
+      width={0}
+      height={0}
+      sizes="(max-width: 768px) 280px, 320px"
+      className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+    />
+  ) : (
+    <Image
+      src={project.image}
+      alt={project.title}
+      fill
+      className="object-cover transition-transform duration-700 group-hover:scale-105"
+      sizes="(max-width: 768px) 380px, 480px"
+    />
+  )}
 
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
 

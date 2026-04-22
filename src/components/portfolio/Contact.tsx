@@ -183,7 +183,7 @@ export default function Contact() {
         >
           <h2 
             className="whitespace-nowrap font-black tracking-tighter text-neutral-900 dark:text-neutral-100
-                       text-[20vw] sm:text-[18vw] md:text-[18vw] lg:text-[15vw]"
+                       text-[13vw] sm:text-[15vw] md:text-[18vw] lg:text-[15vw]"
           >
             THANK YOU!
           </h2>
